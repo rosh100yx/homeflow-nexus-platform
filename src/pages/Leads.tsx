@@ -1,0 +1,297 @@
+
+import React from 'react';
+import { Navbar } from '@/components/ui/Navbar';
+import { LeadCard } from '@/components/leads/LeadCard';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardFooter, 
+  CardHeader, 
+  CardTitle 
+} from '@/components/ui/card';
+import { 
+  PlusCircle, 
+  Search, 
+  SlidersHorizontal, 
+  User, 
+  UserPlus
+} from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+// Mock data for leads
+const leads = [
+  {
+    id: '1',
+    name: 'John Smith',
+    email: 'john.smith@example.com',
+    phone: '(407) 555-1234',
+    status: 'new' as const,
+    source: 'Website',
+    avatar: 'https://i.pravatar.cc/150?img=3',
+    lastContact: 'May 12, 2025',
+    notes: 'Interested in 3BR properties in the downtown area.',
+    assignedTo: {
+      name: 'Emma Rodriguez',
+      avatar: 'https://i.pravatar.cc/150?img=32',
+    },
+  },
+  {
+    id: '2',
+    name: 'Maria Garcia',
+    email: 'maria.garcia@example.com',
+    phone: '(407) 555-5678',
+    status: 'contacted' as const,
+    source: 'Referral',
+    avatar: 'https://i.pravatar.cc/150?img=23',
+    lastContact: 'May 10, 2025',
+    notes: 'Looking for investment properties under $300k.',
+  },
+  {
+    id: '3',
+    name: 'David Johnson',
+    email: 'david.johnson@example.com',
+    phone: '(407) 555-9012',
+    status: 'qualified' as const,
+    source: 'Zillow',
+    avatar: 'https://i.pravatar.cc/150?img=12',
+    lastContact: 'May 8, 2025',
+    notes: 'Prequalified for $450k. Interested in Lakeside Villa.',
+    assignedTo: {
+      name: 'Michael Chen',
+      avatar: 'https://i.pravatar.cc/150?img=15',
+    },
+  },
+  {
+    id: '4',
+    name: 'Sarah Williams',
+    email: 'sarah.williams@example.com',
+    phone: '(407) 555-3456',
+    status: 'unqualified' as const,
+    source: 'Open House',
+    avatar: 'https://i.pravatar.cc/150?img=8',
+    lastContact: 'May 5, 2025',
+    notes: 'Budget constraints. Looking for something below our inventory.',
+  },
+  {
+    id: '5',
+    name: 'Robert Brown',
+    email: 'robert.brown@example.com',
+    phone: '(407) 555-7890',
+    status: 'new' as const,
+    source: 'Facebook Ad',
+    avatar: 'https://i.pravatar.cc/150?img=67',
+    lastContact: 'May 13, 2025',
+  },
+  {
+    id: '6',
+    name: 'Jennifer Miller',
+    email: 'jennifer.miller@example.com',
+    phone: '(407) 555-2345',
+    status: 'contacted' as const,
+    source: 'Website',
+    avatar: 'https://i.pravatar.cc/150?img=25',
+    lastContact: 'May 9, 2025',
+    notes: 'Scheduled for property viewing next week.',
+    assignedTo: {
+      name: 'Emma Rodriguez',
+      avatar: 'https://i.pravatar.cc/150?img=32',
+    },
+  },
+];
+
+const Leads: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      
+      <div className="container mx-auto px-4 py-8 lg:ml-60">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Leads & CRM</h1>
+            <p className="text-gray-500">Manage your leads and customer relationships</p>
+          </div>
+          
+          <div className="mt-4 md:mt-0 flex gap-2">
+            <Button variant="outline">
+              <UserPlus className="mr-2 h-4 w-4" />
+              Import
+            </Button>
+            <Button>
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Add Lead
+            </Button>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Leads Pipeline Overview */}
+          <div className="lg:col-span-1">
+            <Card>
+              <CardHeader>
+                <CardTitle>Lead Pipeline</CardTitle>
+                <CardDescription>Overview of your sales funnel</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
+                        <span className="text-sm font-medium">New</span>
+                      </div>
+                      <span className="text-sm font-medium">8</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-blue-500 h-2 rounded-full" style={{ width: '40%' }}></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full bg-amber-500 mr-2"></div>
+                        <span className="text-sm font-medium">Contacted</span>
+                      </div>
+                      <span className="text-sm font-medium">6</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-amber-500 h-2 rounded-full" style={{ width: '30%' }}></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                        <span className="text-sm font-medium">Qualified</span>
+                      </div>
+                      <span className="text-sm font-medium">4</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-green-500 h-2 rounded-full" style={{ width: '20%' }}></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center">
+                        <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                        <span className="text-sm font-medium">Unqualified</span>
+                      </div>
+                      <span className="text-sm font-medium">2</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-red-500 h-2 rounded-full" style={{ width: '10%' }}></div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" className="w-full">
+                  <User className="mr-2 h-4 w-4" />
+                  View All Leads
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+          
+          {/* Leads List */}
+          <div className="lg:col-span-3">
+            <Card>
+              <CardHeader className="p-4 pb-0">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                  <CardTitle>Leads</CardTitle>
+                  
+                  <div className="mt-2 sm:mt-0 flex items-center space-x-2">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                      <Input placeholder="Search leads..." className="pl-9 w-[200px]" />
+                    </div>
+                    
+                    <Select defaultValue="all">
+                      <SelectTrigger className="w-[120px]">
+                        <SelectValue placeholder="Status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Statuses</SelectItem>
+                        <SelectItem value="new">New</SelectItem>
+                        <SelectItem value="contacted">Contacted</SelectItem>
+                        <SelectItem value="qualified">Qualified</SelectItem>
+                        <SelectItem value="unqualified">Unqualified</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    
+                    <Button variant="outline" size="icon">
+                      <SlidersHorizontal className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                
+                <Tabs defaultValue="all" className="w-full">
+                  <TabsList className="w-full justify-start">
+                    <TabsTrigger value="all">All Leads</TabsTrigger>
+                    <TabsTrigger value="new">New</TabsTrigger>
+                    <TabsTrigger value="contacted">Contacted</TabsTrigger>
+                    <TabsTrigger value="qualified">Qualified</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </CardHeader>
+              
+              <CardContent className="p-4">
+                <TabsContent value="all" className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {leads.map(lead => (
+                      <LeadCard key={lead.id} lead={lead} />
+                    ))}
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="new" className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {leads
+                      .filter(lead => lead.status === 'new')
+                      .map(lead => (
+                        <LeadCard key={lead.id} lead={lead} />
+                      ))}
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="contacted" className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {leads
+                      .filter(lead => lead.status === 'contacted')
+                      .map(lead => (
+                        <LeadCard key={lead.id} lead={lead} />
+                      ))}
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="qualified" className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {leads
+                      .filter(lead => lead.status === 'qualified')
+                      .map(lead => (
+                        <LeadCard key={lead.id} lead={lead} />
+                      ))}
+                  </div>
+                </TabsContent>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Leads;
