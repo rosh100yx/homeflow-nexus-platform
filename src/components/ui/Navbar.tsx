@@ -83,7 +83,7 @@ export const Navbar: React.FC = () => {
             <div className="bg-retro-orange text-retro-white p-2 rounded mr-2">
               <Home className="h-5 w-5" />
             </div>
-            <h1 className="font-bold text-xl text-retro-white">BuilderHub</h1>
+            <h1 className="font-bold text-xl text-retro-white">One Parivaar</h1>
           </Link>
         </div>
         
@@ -124,7 +124,7 @@ export const Navbar: React.FC = () => {
           <div className="bg-retro-orange text-retro-white p-1 rounded mr-2">
             <Home className="h-4 w-4" />
           </div>
-          <h1 className="font-bold text-lg text-retro-navy">BuilderHub</h1>
+          <h1 className="font-bold text-lg text-retro-navy">One Parivaar</h1>
         </Link>
         
         <Button 
