@@ -28,65 +28,65 @@ import {
 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-// Mock data for leads
+// Mock data for leads in Pune, India
 const leads = [
   {
     id: '1',
-    name: 'John Smith',
-    email: 'john.smith@example.com',
-    phone: '(407) 555-1234',
+    name: 'Rajesh Sharma',
+    email: 'rajesh.sharma@example.com',
+    phone: '(+91) 98765-43210',
     status: 'new' as const,
     source: 'Website',
     avatar: 'https://i.pravatar.cc/150?img=3',
     lastContact: 'May 12, 2025',
-    notes: 'Interested in 3BR properties in the downtown area.',
+    notes: 'Interested in 3BHK apartment in Baner area, budget around 85L.',
     assignedTo: {
-      name: 'Emma Rodriguez',
+      name: 'Neha Kapoor',
       avatar: 'https://i.pravatar.cc/150?img=32',
     },
   },
   {
     id: '2',
-    name: 'Maria Garcia',
-    email: 'maria.garcia@example.com',
-    phone: '(407) 555-5678',
+    name: 'Priya Patel',
+    email: 'priya.patel@example.com',
+    phone: '(+91) 87654-32109',
     status: 'contacted' as const,
     source: 'Referral',
     avatar: 'https://i.pravatar.cc/150?img=23',
     lastContact: 'May 10, 2025',
-    notes: 'Looking for investment properties under $300k.',
+    notes: 'Looking for investment property in Kharadi, budget under 70L.',
   },
   {
     id: '3',
-    name: 'David Johnson',
-    email: 'david.johnson@example.com',
-    phone: '(407) 555-9012',
+    name: 'Amit Singh',
+    email: 'amit.singh@example.com',
+    phone: '(+91) 76543-21098',
     status: 'qualified' as const,
-    source: 'Zillow',
+    source: 'Housing.com',
     avatar: 'https://i.pravatar.cc/150?img=12',
     lastContact: 'May 8, 2025',
-    notes: 'Prequalified for $450k. Interested in Lakeside Villa.',
+    notes: 'Pre-qualified for 95L. Interested in Serene Heights project in Aundh.',
     assignedTo: {
-      name: 'Michael Chen',
+      name: 'Vikram Mehta',
       avatar: 'https://i.pravatar.cc/150?img=15',
     },
   },
   {
     id: '4',
-    name: 'Sarah Williams',
-    email: 'sarah.williams@example.com',
-    phone: '(407) 555-3456',
+    name: 'Meera Verma',
+    email: 'meera.verma@example.com',
+    phone: '(+91) 65432-10987',
     status: 'unqualified' as const,
-    source: 'Open House',
+    source: 'Property Expo',
     avatar: 'https://i.pravatar.cc/150?img=8',
     lastContact: 'May 5, 2025',
-    notes: 'Budget constraints. Looking for something below our inventory.',
+    notes: 'Budget constraints (under 50L). Looking for something below our inventory.',
   },
   {
     id: '5',
-    name: 'Robert Brown',
-    email: 'robert.brown@example.com',
-    phone: '(407) 555-7890',
+    name: 'Arjun Reddy',
+    email: 'arjun.reddy@example.com',
+    phone: '(+91) 54321-09876',
     status: 'new' as const,
     source: 'Facebook Ad',
     avatar: 'https://i.pravatar.cc/150?img=67',
@@ -94,16 +94,16 @@ const leads = [
   },
   {
     id: '6',
-    name: 'Jennifer Miller',
-    email: 'jennifer.miller@example.com',
-    phone: '(407) 555-2345',
+    name: 'Ananya Desai',
+    email: 'ananya.desai@example.com',
+    phone: '(+91) 43210-98765',
     status: 'contacted' as const,
     source: 'Website',
     avatar: 'https://i.pravatar.cc/150?img=25',
     lastContact: 'May 9, 2025',
-    notes: 'Scheduled for property viewing next week.',
+    notes: 'Scheduled for property viewing at Green Valley Villa next week.',
     assignedTo: {
-      name: 'Emma Rodriguez',
+      name: 'Neha Kapoor',
       avatar: 'https://i.pravatar.cc/150?img=32',
     },
   },
@@ -118,7 +118,7 @@ const Leads: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Leads & CRM</h1>
-            <p className="text-gray-500">Manage your leads and customer relationships</p>
+            <p className="text-gray-500">Manage your leads and customer relationships in Pune region</p>
           </div>
           
           <div className="mt-4 md:mt-0 flex gap-2">
@@ -139,7 +139,7 @@ const Leads: React.FC = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Lead Pipeline</CardTitle>
-                <CardDescription>Overview of your sales funnel</CardDescription>
+                <CardDescription>Overview of your Pune sales funnel</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">

@@ -22,7 +22,7 @@ interface PropertyCardProps {
     baths: number;
     sqft: number;
     status: 'for-sale' | 'pending' | 'sold';
-    type: 'apartment' | 'house' | 'condo';
+    type: 'apartment' | 'house' | 'condo' | 'villa';
   };
 }
 
