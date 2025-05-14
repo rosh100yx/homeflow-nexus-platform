@@ -23,12 +23,12 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   className,
 }) => {
   return (
-    <Card className={cn("card-hover", className)}>
+    <Card className={cn("card-hover retro-card border-2 border-retro-navy", className)}>
       <CardContent className="flex items-start justify-between pt-6">
         <div>
-          <p className="text-sm font-medium text-muted-foreground">{title}</p>
+          <p className="text-sm font-medium text-retro-gray">{title}</p>
           <div className="flex items-baseline gap-2">
-            <h3 className="text-2xl font-bold">{value}</h3>
+            <h3 className="text-2xl font-bold text-retro-navy">{value}</h3>
             {change && (
               <div className={cn("flex items-center text-xs",
                 change.type === 'increase' ? 'text-green-500' : 'text-red-500'
@@ -42,7 +42,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
             )}
           </div>
         </div>
-        <div className="p-2 bg-muted rounded-md">
+        <div className="p-2 bg-retro-orange/10 text-retro-orange rounded-md">
           {icon}
         </div>
       </CardContent>

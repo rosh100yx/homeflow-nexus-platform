@@ -34,7 +34,7 @@ const statusConfig = {
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   return (
-    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300">
+    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300 retro-card">
       <CardHeader className="p-0">
         <div className="relative">
           <AspectRatio ratio={16 / 9}>
@@ -53,33 +53,33 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
       </CardHeader>
       <CardContent className="p-4">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="font-semibold text-lg">{property.title}</h3>
-          <p className="font-bold text-green-600">{property.price}</p>
+          <h3 className="font-semibold text-lg text-retro-navy">{property.title}</h3>
+          <p className="font-bold text-retro-orange">{property.price}</p>
         </div>
-        <div className="flex items-center gap-1 text-muted-foreground mb-3 text-sm">
+        <div className="flex items-center gap-1 text-retro-gray mb-3 text-sm">
           <MapPin className="h-3 w-3" />
           <span>{property.address}</span>
         </div>
         <div className="grid grid-cols-3 gap-2 text-sm">
           <div className="flex items-center gap-1">
-            <Bed className="h-4 w-4 text-muted-foreground" />
+            <Bed className="h-4 w-4 text-retro-gray" />
             <span>{property.beds} {property.beds === 1 ? 'Bed' : 'Beds'}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Bath className="h-4 w-4 text-muted-foreground" />
+            <Bath className="h-4 w-4 text-retro-gray" />
             <span>{property.baths} {property.baths === 1 ? 'Bath' : 'Baths'}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Tag className="h-4 w-4 text-muted-foreground" />
+            <Tag className="h-4 w-4 text-retro-gray" />
             <span>{property.sqft} sq.ft</span>
           </div>
         </div>
       </CardContent>
       <CardFooter className="flex justify-between p-4 pt-0">
-        <Badge variant="outline" className="rounded-sm">
+        <Badge variant="outline" className="rounded-sm border-retro-navy text-retro-navy">
           {property.type.charAt(0).toUpperCase() + property.type.slice(1)}
         </Badge>
-        <Button variant="ghost" size="sm">View Details</Button>
+        <Button variant="ghost" size="sm" className="text-retro-orange hover:text-retro-orange/80 hover:bg-retro-orange/10">View Details</Button>
       </CardFooter>
     </Card>
   );

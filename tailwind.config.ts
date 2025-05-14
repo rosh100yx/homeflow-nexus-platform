@@ -63,18 +63,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				saas: {
-					50: '#f0f7ff',
-					100: '#e0eefe',
-					200: '#baddfe',
-					300: '#7cc2fd',
-					400: '#36a6fa',
-					500: '#0c8df4',
-					600: '#0070d2',
-					700: '#0158ab',
-					800: '#064b8d',
-					900: '#0a4072',
-					950: '#07294d',
+				retro: {
+					orange: '#F97316',
+					white: '#FFFFFF',
+					navy: '#172554', 
+					black: '#000000e6',
+					gray: '#aaadb0',
 				}
 			},
 			borderRadius: {

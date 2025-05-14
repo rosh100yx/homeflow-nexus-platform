@@ -77,13 +77,13 @@ export const Navbar: React.FC = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 w-60 bg-saas-50 border-r shadow-sm">
+      <div className="hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 w-60 bg-retro-navy border-r shadow-sm">
         <div className="px-3 mb-10">
           <Link to="/" className="flex items-center">
-            <div className="bg-saas-600 text-white p-2 rounded mr-2">
+            <div className="bg-retro-orange text-retro-white p-2 rounded mr-2">
               <Home className="h-5 w-5" />
             </div>
-            <h1 className="font-bold text-xl">BuilderHub</h1>
+            <h1 className="font-bold text-xl text-retro-white">BuilderHub</h1>
           </Link>
         </div>
         
@@ -95,8 +95,8 @@ export const Navbar: React.FC = () => {
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                 isActive(item.href)
-                  ? "bg-saas-100 text-saas-800"
-                  : "text-gray-700 hover:bg-saas-50 hover:text-saas-600"
+                  ? "bg-retro-orange text-retro-white"
+                  : "text-retro-white hover:bg-retro-navy/80 hover:text-retro-orange"
               )}
             >
               {item.icon}
@@ -106,31 +106,32 @@ export const Navbar: React.FC = () => {
         </nav>
         
         <div className="mt-auto px-3">
-          <div className="flex items-center gap-3 p-3 bg-saas-100 rounded-md">
-            <div className="bg-saas-500 text-white p-1 rounded-full">
+          <div className="flex items-center gap-3 p-3 bg-retro-navy/80 rounded-md border border-retro-white/20">
+            <div className="bg-retro-orange text-retro-white p-1 rounded-full">
               <User className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-medium">Alex Morrison</p>
-              <p className="text-xs text-muted-foreground">Admin</p>
+              <p className="text-sm font-medium text-retro-white">Alex Morrison</p>
+              <p className="text-xs text-retro-white/70">Admin</p>
             </div>
           </div>
         </div>
       </div>
       
       {/* Mobile Navigation Bar */}
-      <div className="lg:hidden fixed top-0 inset-x-0 h-16 border-b bg-white z-30 flex items-center justify-between px-4">
+      <div className="lg:hidden fixed top-0 inset-x-0 h-16 border-b bg-retro-white z-30 flex items-center justify-between px-4">
         <Link to="/" className="flex items-center">
-          <div className="bg-saas-600 text-white p-1 rounded mr-2">
+          <div className="bg-retro-orange text-retro-white p-1 rounded mr-2">
             <Home className="h-4 w-4" />
           </div>
-          <h1 className="font-bold text-lg">BuilderHub</h1>
+          <h1 className="font-bold text-lg text-retro-navy">BuilderHub</h1>
         </Link>
         
         <Button 
           variant="ghost" 
           size="icon" 
           onClick={() => setShowMobileMenu(true)}
+          className="text-retro-navy"
         >
           <Menu className="h-6 w-6" />
         </Button>
@@ -138,14 +139,15 @@ export const Navbar: React.FC = () => {
       
       {/* Mobile Menu */}
       {showMobileMenu && (
-        <div className="lg:hidden fixed inset-0 bg-black/50 z-50">
-          <div className="fixed inset-y-0 right-0 w-3/4 max-w-xs bg-white p-6 h-full overflow-y-auto">
+        <div className="lg:hidden fixed inset-0 bg-retro-black/50 z-50">
+          <div className="fixed inset-y-0 right-0 w-3/4 max-w-xs bg-retro-navy p-6 h-full overflow-y-auto">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="font-bold text-lg">Menu</h2>
+              <h2 className="font-bold text-lg text-retro-white">Menu</h2>
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={() => setShowMobileMenu(false)}
+                className="text-retro-white"
               >
                 <X className="h-5 w-5" />
               </Button>
@@ -160,8 +162,8 @@ export const Navbar: React.FC = () => {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium",
                     isActive(item.href)
-                      ? "bg-saas-100 text-saas-800"
-                      : "text-gray-700"
+                      ? "bg-retro-orange text-retro-white"
+                      : "text-retro-white hover:bg-retro-navy/80"
                   )}
                 >
                   {item.icon}
@@ -170,14 +172,14 @@ export const Navbar: React.FC = () => {
               ))}
             </nav>
             
-            <div className="mt-8 pt-6 border-t">
-              <div className="flex items-center gap-3 p-3 bg-saas-100 rounded-md">
-                <div className="bg-saas-500 text-white p-1 rounded-full">
+            <div className="mt-8 pt-6 border-t border-retro-white/20">
+              <div className="flex items-center gap-3 p-3 bg-retro-navy/80 rounded-md border border-retro-white/20">
+                <div className="bg-retro-orange text-retro-white p-1 rounded-full">
                   <User className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Alex Morrison</p>
-                  <p className="text-xs text-muted-foreground">Admin</p>
+                  <p className="text-sm font-medium text-retro-white">Alex Morrison</p>
+                  <p className="text-xs text-retro-white/70">Admin</p>
                 </div>
               </div>
             </div>

@@ -29,7 +29,7 @@ interface LeadCardProps {
 }
 
 const statusConfig = {
-  'new': { label: 'New', class: 'bg-blue-100 text-blue-800' },
+  'new': { label: 'New', class: 'bg-retro-orange/20 text-retro-orange' },
   'contacted': { label: 'Contacted', class: 'bg-amber-100 text-amber-800' },
   'qualified': { label: 'Qualified', class: 'bg-green-100 text-green-800' },
   'unqualified': { label: 'Unqualified', class: 'bg-red-100 text-red-800' },
@@ -37,17 +37,17 @@ const statusConfig = {
 
 export const LeadCard: React.FC<LeadCardProps> = ({ lead }) => {
   return (
-    <Card className="card-hover">
+    <Card className="card-hover retro-card">
       <CardContent className="p-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <Avatar>
               <AvatarImage src={lead.avatar} alt={lead.name} />
-              <AvatarFallback>{lead.name.charAt(0)}</AvatarFallback>
+              <AvatarFallback className="bg-retro-navy text-retro-white">{lead.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="font-medium">{lead.name}</h3>
-              <p className="text-sm text-muted-foreground">Source: {lead.source}</p>
+              <h3 className="font-medium text-retro-navy">{lead.name}</h3>
+              <p className="text-sm text-retro-gray">Source: {lead.source}</p>
             </div>
           </div>
           <Badge className={statusConfig[lead.status].class}>
@@ -57,38 +57,38 @@ export const LeadCard: React.FC<LeadCardProps> = ({ lead }) => {
         
         <div className="space-y-2 text-sm">
           <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 text-muted-foreground" />
-            <a href={`mailto:${lead.email}`} className="text-saas-700 hover:underline">{lead.email}</a>
+            <Mail className="h-4 w-4 text-retro-gray" />
+            <a href={`mailto:${lead.email}`} className="text-retro-orange hover:underline">{lead.email}</a>
           </div>
           <div className="flex items-center gap-2">
-            <Phone className="h-4 w-4 text-muted-foreground" />
-            <a href={`tel:${lead.phone}`} className="text-saas-700 hover:underline">{lead.phone}</a>
+            <Phone className="h-4 w-4 text-retro-gray" />
+            <a href={`tel:${lead.phone}`} className="text-retro-orange hover:underline">{lead.phone}</a>
           </div>
           {lead.lastContact && (
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-              <span>Last Contact: {lead.lastContact}</span>
+              <Calendar className="h-4 w-4 text-retro-gray" />
+              <span className="text-retro-navy">Last Contact: {lead.lastContact}</span>
             </div>
           )}
         </div>
         
         {lead.notes && (
-          <div className="mt-3 p-2 bg-muted rounded-md text-sm">
-            <p className="text-muted-foreground">{lead.notes}</p>
+          <div className="mt-3 p-2 bg-retro-navy/5 rounded-md text-sm">
+            <p className="text-retro-gray">{lead.notes}</p>
           </div>
         )}
       </CardContent>
       
       <CardFooter className="flex items-center justify-between p-4 pt-0">
         {lead.assignedTo ? (
-          <div className="flex items-center gap-2 text-xs">
-            <User className="h-3 w-3 text-muted-foreground" />
+          <div className="flex items-center gap-2 text-xs text-retro-gray">
+            <User className="h-3 w-3" />
             <span>Assigned to {lead.assignedTo.name}</span>
           </div>
         ) : (
-          <span className="text-xs text-muted-foreground">Not assigned</span>
+          <span className="text-xs text-retro-gray">Not assigned</span>
         )}
-        <Button size="sm">Contact</Button>
+        <Button size="sm" className="bg-retro-orange hover:bg-retro-orange/90 text-retro-white">Contact</Button>
       </CardFooter>
     </Card>
   );

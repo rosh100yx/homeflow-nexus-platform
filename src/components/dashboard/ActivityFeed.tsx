@@ -20,7 +20,7 @@ interface Activity {
 const activityTypeConfig: Record<Activity['type'], { icon: React.ReactNode; color: string }> = {
   lead: {
     icon: <User className="h-4 w-4" />,
-    color: 'bg-blue-100 text-blue-800',
+    color: 'bg-retro-orange/20 text-retro-orange',
   },
   property: {
     icon: <Calendar className="h-4 w-4" />,
@@ -32,7 +32,7 @@ const activityTypeConfig: Record<Activity['type'], { icon: React.ReactNode; colo
   },
   document: {
     icon: <Calendar className="h-4 w-4" />,
-    color: 'bg-purple-100 text-purple-800',
+    color: 'bg-retro-navy/20 text-retro-navy',
   },
 };
 
@@ -42,9 +42,9 @@ interface ActivityFeedProps {
 
 export const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
   return (
-    <Card className="h-[calc(100%-2rem)]">
+    <Card className="h-[calc(100%-2rem)] retro-card">
       <CardHeader>
-        <CardTitle>Recent Activity</CardTitle>
+        <CardTitle className="text-retro-navy">Recent Activity</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
@@ -58,10 +58,10 @@ export const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
               </Badge>
               
               <div className="space-y-1">
-                <p className="font-medium">{activity.title}</p>
-                <p className="text-sm text-muted-foreground">{activity.description}</p>
+                <p className="font-medium text-retro-navy">{activity.title}</p>
+                <p className="text-sm text-retro-gray">{activity.description}</p>
                 
-                <div className="flex items-center text-xs text-muted-foreground">
+                <div className="flex items-center text-xs text-retro-gray">
                   <Clock className="mr-1 h-3 w-3" />
                   {activity.time}
                   
