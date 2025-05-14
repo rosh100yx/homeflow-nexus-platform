@@ -244,48 +244,48 @@ const Leads: React.FC = () => {
                     <TabsTrigger value="contacted">Contacted</TabsTrigger>
                     <TabsTrigger value="qualified">Qualified</TabsTrigger>
                   </TabsList>
+                
+                  <CardContent className="p-4">
+                    <TabsContent value="all" className="mt-0">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {leads.map(lead => (
+                          <LeadCard key={lead.id} lead={lead} />
+                        ))}
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="new" className="mt-0">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {leads
+                          .filter(lead => lead.status === 'new')
+                          .map(lead => (
+                            <LeadCard key={lead.id} lead={lead} />
+                          ))}
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="contacted" className="mt-0">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {leads
+                          .filter(lead => lead.status === 'contacted')
+                          .map(lead => (
+                            <LeadCard key={lead.id} lead={lead} />
+                          ))}
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="qualified" className="mt-0">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {leads
+                          .filter(lead => lead.status === 'qualified')
+                          .map(lead => (
+                            <LeadCard key={lead.id} lead={lead} />
+                          ))}
+                      </div>
+                    </TabsContent>
+                  </CardContent>
                 </Tabs>
               </CardHeader>
-              
-              <CardContent className="p-4">
-                <TabsContent value="all" className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {leads.map(lead => (
-                      <LeadCard key={lead.id} lead={lead} />
-                    ))}
-                  </div>
-                </TabsContent>
-                
-                <TabsContent value="new" className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {leads
-                      .filter(lead => lead.status === 'new')
-                      .map(lead => (
-                        <LeadCard key={lead.id} lead={lead} />
-                      ))}
-                  </div>
-                </TabsContent>
-                
-                <TabsContent value="contacted" className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {leads
-                      .filter(lead => lead.status === 'contacted')
-                      .map(lead => (
-                        <LeadCard key={lead.id} lead={lead} />
-                      ))}
-                  </div>
-                </TabsContent>
-                
-                <TabsContent value="qualified" className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {leads
-                      .filter(lead => lead.status === 'qualified')
-                      .map(lead => (
-                        <LeadCard key={lead.id} lead={lead} />
-                      ))}
-                  </div>
-                </TabsContent>
-              </CardContent>
             </Card>
           </div>
         </div>
