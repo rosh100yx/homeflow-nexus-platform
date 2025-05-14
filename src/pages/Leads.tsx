@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar } from '@/components/ui/Navbar';
 import { LeadCard } from '@/components/leads/LeadCard';
 import { Button } from '@/components/ui/button';
@@ -27,6 +27,7 @@ import {
   UserPlus
 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { AddLeadDialog } from '@/components/leads/AddLeadDialog';
 
 // Mock data for leads in Pune, India
 const leads = [
@@ -91,6 +92,7 @@ const leads = [
     source: 'Facebook Ad',
     avatar: 'https://i.pravatar.cc/150?img=67',
     lastContact: 'May 13, 2025',
+    notes: 'Looking for 4BHK villa in Koregaon Park, budget 2Cr+.',
   },
   {
     id: '6',
@@ -107,9 +109,37 @@ const leads = [
       avatar: 'https://i.pravatar.cc/150?img=32',
     },
   },
+  {
+    id: '7',
+    name: 'Rahul Malhotra',
+    email: 'rahul.malhotra@example.com',
+    phone: '(+91) 87651-23456',
+    status: 'qualified' as const,
+    source: '99acres.com',
+    avatar: 'https://i.pravatar.cc/150?img=53',
+    lastContact: 'May 7, 2025',
+    notes: 'Ready to invest in multiple properties in Hinjewadi. Budget 3Cr.',
+    assignedTo: {
+      name: 'Vikram Mehta',
+      avatar: 'https://i.pravatar.cc/150?img=15',
+    },
+  },
+  {
+    id: '8',
+    name: 'Kavita Joshi',
+    email: 'kavita.joshi@example.com',
+    phone: '(+91) 76543-89012',
+    status: 'new' as const,
+    source: 'Magicbricks',
+    avatar: 'https://i.pravatar.cc/150?img=45',
+    lastContact: 'May 14, 2025',
+    notes: 'NRI looking for investment property in Pune. Interested in Baner or Aundh.',
+  },
 ];
 
 const Leads: React.FC = () => {
+  const [isAddLeadDialogOpen, setIsAddLeadDialogOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -126,7 +156,7 @@ const Leads: React.FC = () => {
               <UserPlus className="mr-2 h-4 w-4" />
               Import
             </Button>
-            <Button>
+            <Button onClick={() => setIsAddLeadDialogOpen(true)}>
               <PlusCircle className="mr-2 h-4 w-4" />
               Add Lead
             </Button>
@@ -290,6 +320,11 @@ const Leads: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      <AddLeadDialog 
+        open={isAddLeadDialogOpen} 
+        onOpenChange={setIsAddLeadDialogOpen} 
+      />
     </div>
   );
 };

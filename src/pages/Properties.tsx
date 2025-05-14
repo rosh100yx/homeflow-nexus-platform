@@ -15,6 +15,7 @@ import { LayoutGrid, List, PlusCircle, Search, SlidersHorizontal } from 'lucide-
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
+import { AddPropertyDialog } from '@/components/properties/AddPropertyDialog';
 
 // Mock data for properties in Pune, India
 const properties = [
@@ -90,10 +91,35 @@ const properties = [
     status: 'pending' as const,
     type: 'house' as const,
   },
+  {
+    id: '7',
+    title: 'Golden Palms',
+    address: 'Wakad, Pune, Maharashtra',
+    price: '₹1,45,00,000',
+    image: 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    beds: 3,
+    baths: 3,
+    sqft: 2200,
+    status: 'for-sale' as const,
+    type: 'apartment' as const,
+  },
+  {
+    id: '8',
+    title: 'Orchid Residency',
+    address: 'Hadapsar, Pune, Maharashtra',
+    price: '₹92,50,000',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    beds: 3,
+    baths: 2,
+    sqft: 1800,
+    status: 'for-sale' as const,
+    type: 'apartment' as const,
+  },
 ];
 
 const Properties: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [isAddPropertyDialogOpen, setIsAddPropertyDialogOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -107,7 +133,7 @@ const Properties: React.FC = () => {
           </div>
           
           <div className="mt-4 md:mt-0">
-            <Button>
+            <Button onClick={() => setIsAddPropertyDialogOpen(true)}>
               <PlusCircle className="mr-2 h-4 w-4" />
               Add Property
             </Button>
@@ -179,7 +205,7 @@ const Properties: React.FC = () => {
           </Card>
           
           <TabsContent value="all" className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
               {properties.map(property => (
                 <PropertyCard key={property.id} property={property} />
               ))}
@@ -187,7 +213,7 @@ const Properties: React.FC = () => {
           </TabsContent>
           
           <TabsContent value="active" className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
               {properties
                 .filter(property => property.status === 'for-sale')
                 .map(property => (
@@ -197,7 +223,7 @@ const Properties: React.FC = () => {
           </TabsContent>
           
           <TabsContent value="pending" className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
               {properties
                 .filter(property => property.status === 'pending')
                 .map(property => (
@@ -207,7 +233,7 @@ const Properties: React.FC = () => {
           </TabsContent>
           
           <TabsContent value="sold" className="mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
               {properties
                 .filter(property => property.status === 'sold')
                 .map(property => (
@@ -217,6 +243,11 @@ const Properties: React.FC = () => {
           </TabsContent>
         </Tabs>
       </div>
+      
+      <AddPropertyDialog 
+        open={isAddPropertyDialogOpen} 
+        onOpenChange={setIsAddPropertyDialogOpen} 
+      />
     </div>
   );
 };

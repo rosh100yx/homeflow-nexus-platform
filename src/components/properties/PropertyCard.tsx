@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Clock, Home, MapPin, Tag } from 'lucide-react';
+import { Bed, Bath, MapPin, Tag, Home } from 'lucide-react';
 import { 
   Card, 
   CardContent, 
@@ -34,14 +34,14 @@ const statusConfig = {
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   return (
-    <Card className="overflow-hidden card-hover">
+    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300">
       <CardHeader className="p-0">
         <div className="relative">
           <AspectRatio ratio={16 / 9}>
             <img
               src={property.image}
               alt={property.title}
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded-t-md"
             />
           </AspectRatio>
           <div className="absolute top-2 right-2 flex gap-2">
@@ -54,7 +54,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
       <CardContent className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-semibold text-lg">{property.title}</h3>
-          <p className="font-bold text-saas-600">{property.price}</p>
+          <p className="font-bold text-green-600">{property.price}</p>
         </div>
         <div className="flex items-center gap-1 text-muted-foreground mb-3 text-sm">
           <MapPin className="h-3 w-3" />
@@ -62,16 +62,16 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         </div>
         <div className="grid grid-cols-3 gap-2 text-sm">
           <div className="flex items-center gap-1">
-            <Home className="h-4 w-4 text-muted-foreground" />
-            <span>{property.beds} Beds</span>
+            <Bed className="h-4 w-4 text-muted-foreground" />
+            <span>{property.beds} {property.beds === 1 ? 'Bed' : 'Beds'}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Home className="h-4 w-4 text-muted-foreground" />
-            <span>{property.baths} Baths</span>
+            <Bath className="h-4 w-4 text-muted-foreground" />
+            <span>{property.baths} {property.baths === 1 ? 'Bath' : 'Baths'}</span>
           </div>
           <div className="flex items-center gap-1">
             <Tag className="h-4 w-4 text-muted-foreground" />
-            <span>{property.sqft} sqft</span>
+            <span>{property.sqft} sq.ft</span>
           </div>
         </div>
       </CardContent>
