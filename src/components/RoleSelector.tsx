@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-type Role = 'builder' | 'realtor' | 'buyer';
+type Role = 'builder' | 'realtor';
 
 interface RoleSelectorProps {
   activeRole: Role;
@@ -18,14 +18,12 @@ interface RoleSelectorProps {
 
 const roleLabels: Record<Role, string> = {
   builder: 'Builder',
-  realtor: 'Realtor',
-  buyer: 'Buyer'
+  realtor: 'Realtor'
 };
 
 const roleClasses: Record<Role, string> = {
   builder: 'role-builder',
-  realtor: 'role-realtor',
-  buyer: 'role-buyer'
+  realtor: 'role-realtor'
 };
 
 export const RoleSelector: React.FC<RoleSelectorProps> = ({ activeRole, setActiveRole }) => {
