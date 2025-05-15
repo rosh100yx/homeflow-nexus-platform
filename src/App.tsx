@@ -14,6 +14,8 @@ import Marketplace from "./pages/Marketplace";
 import Leads from "./pages/Leads";
 import Agreements from "./pages/Agreements";
 import Analytics from "./pages/Analytics";
+import Transactions from "./pages/Transactions";
+import Payments from "./pages/Payments";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
@@ -30,8 +32,8 @@ const App = () => (
             <Route path="/properties" element={<Properties />} />
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/leads" element={<Leads />} />
-            <Route path="/transactions" element={<Dashboard />} />
-            <Route path="/payments" element={<Dashboard />} />
+            <Route path="/transactions" element={<Transactions />} />
+            <Route path="/payments" element={<Payments />} />
             <Route path="/agreements" element={<Agreements />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/settings" element={<Dashboard />} />

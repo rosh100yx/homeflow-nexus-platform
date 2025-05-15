@@ -12,24 +12,34 @@ interface DashboardHeaderProps {
   activeRole: Role;
   setActiveRole: (role: Role) => void;
   onShowBuyerInsights: () => void;
+  searchQuery: string;
+  onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const DashboardHeader: React.FC<DashboardHeaderProps> = ({ 
   activeRole, 
   setActiveRole,
-  onShowBuyerInsights
+  onShowBuyerInsights,
+  searchQuery,
+  onSearchChange
 }) => {
   return (
-    <div className="flex flex-col gap-y-4 md:flex-row md:items-center md:justify-between mb-8">
+    <div className="flex flex-col gap-y-4 md:flex-row md:items-center md:justify-between mb-6">
       <div>
-        <h1 className="text-3xl font-bold text-retro-navy">Pune Dashboard</h1>
+        <h1 className="text-2xl font-bold text-retro-navy">Pune Dashboard</h1>
         <p className="text-retro-gray">Welcome back, Aditya Sharma</p>
       </div>
       
-      <div className="flex items-center gap-4">
-        <div className="relative hidden md:flex">
+      <div className="flex items-center gap-3">
+        <div className="relative">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-retro-gray" />
-          <Input type="search" placeholder="Search Pune properties..." className="pl-8 w-[200px] lg:w-[300px] border-retro-navy/30 focus-visible:ring-retro-orange" />
+          <Input 
+            type="search" 
+            placeholder="Search Pune properties..." 
+            className="pl-8 w-[200px] lg:w-[260px] border-retro-navy/30 focus-visible:ring-retro-orange"
+            value={searchQuery}
+            onChange={onSearchChange}
+          />
         </div>
         
         <Button 

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Navbar } from '@/components/ui/Navbar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
@@ -9,6 +10,8 @@ import { LeadCard } from '@/components/leads/LeadCard';
 import { BarChart3, Building2, Calendar, DollarSign, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 type Role = 'builder' | 'realtor';
 
@@ -141,8 +144,10 @@ const leads = [
 const Dashboard: React.FC = () => {
   const [activeRole, setActiveRole] = useState<Role>('builder');
   const [showBuyerInsights, setShowBuyerInsights] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const stats = showBuyerInsights ? buyerInsightsStats : statsDataByRole[activeRole];
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const handleShowBuyerInsights = () => {
     setShowBuyerInsights(!showBuyerInsights);
@@ -154,85 +159,135 @@ const Dashboard: React.FC = () => {
       duration: 3000,
     });
   };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    if (e.target.value.length > 2) {
+      toast({
+        title: "Search Results",
+        description: `Searching for Pune properties matching "${e.target.value}"`,
+        duration: 2000,
+      });
+    }
+  };
+  
+  // Filter properties based on search query
+  const filteredProperties = properties.filter(property => 
+    property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    property.address.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       
-      <div className="container mx-auto px-4 py-8 lg:ml-60">
-        <DashboardHeader 
-          activeRole={activeRole} 
-          setActiveRole={setActiveRole}
-          onShowBuyerInsights={handleShowBuyerInsights} 
-        />
-        
-        <section className="stats-grid mb-8">
-          {stats.map((stat, index) => (
-            <StatsCard 
-              key={index}
-              title={stat.title}
-              value={stat.value}
-              icon={stat.icon}
-              change={stat.change}
-            />
-          ))}
-        </section>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          <div className="lg:col-span-2">
-            <Card className="h-full">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>{showBuyerInsights ? "Recommended Properties" : "Recent Pune Properties"}</CardTitle>
-                <Button variant="ghost" size="sm">View All</Button>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {properties.map(property => (
-                    <PropertyCard key={property.id} property={property} />
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+      <div className="flex-1 overflow-auto">
+        <div className="container mx-auto px-4 py-6 lg:ml-60 max-w-7xl">
+          <DashboardHeader 
+            activeRole={activeRole} 
+            setActiveRole={setActiveRole}
+            onShowBuyerInsights={handleShowBuyerInsights}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearch}
+          />
+          
+          <section className="stats-grid mb-6">
+            {stats.map((stat, index) => (
+              <StatsCard 
+                key={index}
+                title={stat.title}
+                value={stat.value}
+                icon={stat.icon}
+                change={stat.change}
+              />
+            ))}
+          </section>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <div className="lg:col-span-2">
+              <Card className="h-full shadow-sm">
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle className="text-xl">{showBuyerInsights ? "Recommended Properties" : "Recent Pune Properties"}</CardTitle>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => navigate('/properties')}
+                  >
+                    View All
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-[420px] pr-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {filteredProperties.map(property => (
+                        <PropertyCard key={property.id} property={property} />
+                      ))}
+                      {filteredProperties.length === 0 && (
+                        <div className="col-span-2 flex items-center justify-center h-40 text-muted-foreground">
+                          No properties match your search
+                        </div>
+                      )}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div>
+              <ActivityFeed activities={activities} />
+            </div>
           </div>
           
-          <div>
-            <ActivityFeed activities={activities} />
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Recent Pune Leads</CardTitle>
-                <Button variant="ghost" size="sm">View All</Button>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {leads.map(lead => (
-                    <LeadCard key={lead.id} lead={lead} />
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <div>
-            <Card>
-              <CardHeader>
-                <CardTitle>Pune Market Overview</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col items-center justify-center p-6">
-                <div className="w-full h-32 flex items-center justify-center bg-muted rounded-md mb-4">
-                  <BarChart3 className="h-10 w-10 text-muted-foreground" />
-                </div>
-                <p className="text-sm text-center text-muted-foreground">
-                  {showBuyerInsights 
-                    ? "Buyer interest trends across Pune neighborhoods"
-                    : "Analytics data for Pune real estate market performance"}
-                </p>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <div className="lg:col-span-2">
+              <Card className="shadow-sm">
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle className="text-xl">Recent Pune Leads</CardTitle>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => navigate('/leads')}
+                  >
+                    View All
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-[300px] pr-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {leads.map(lead => (
+                        <LeadCard key={lead.id} lead={lead} />
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div>
+              <Card className="shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-xl">Pune Market Overview</CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center justify-center p-6">
+                  <div className="w-full h-32 flex items-center justify-center bg-muted rounded-md mb-4">
+                    <BarChart3 className="h-10 w-10 text-muted-foreground" />
+                  </div>
+                  <p className="text-sm text-center text-muted-foreground">
+                    {showBuyerInsights 
+                      ? "Buyer interest trends across Pune neighborhoods"
+                      : "Analytics data for Pune real estate market performance"}
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-4"
+                    onClick={() => navigate('/analytics')}
+                  >
+                    View Details
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
