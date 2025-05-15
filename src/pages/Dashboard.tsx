@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Navbar } from '@/components/ui/Navbar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
@@ -16,25 +15,25 @@ type Role = 'builder' | 'realtor';
 // Mock data for stats cards
 const statsDataByRole = {
   builder: [
-    { title: 'Total Pune Projects', value: '18', icon: <Building2 className="h-5 w-5" />, change: { value: 8, type: 'increase' } },
-    { title: 'Active Properties', value: '14', icon: <Building2 className="h-5 w-5" />, change: { value: 4, type: 'increase' } },
-    { title: 'Pending Payments', value: '₹9,50,000', icon: <DollarSign className="h-5 w-5" />, change: { value: 12, type: 'decrease' } },
-    { title: 'New Inquiries', value: '28', icon: <Users className="h-5 w-5" />, change: { value: 15, type: 'increase' } },
+    { title: 'Total Pune Projects', value: '18', icon: <Building2 className="h-5 w-5" />, change: { value: 8, type: 'increase' as const } },
+    { title: 'Active Properties', value: '14', icon: <Building2 className="h-5 w-5" />, change: { value: 4, type: 'increase' as const } },
+    { title: 'Pending Payments', value: '₹9,50,000', icon: <DollarSign className="h-5 w-5" />, change: { value: 12, type: 'decrease' as const } },
+    { title: 'New Inquiries', value: '28', icon: <Users className="h-5 w-5" />, change: { value: 15, type: 'increase' as const } },
   ],
   realtor: [
-    { title: 'Active Pune Listings', value: '27', icon: <Building2 className="h-5 w-5" />, change: { value: 6, type: 'increase' } },
-    { title: 'Pune Leads', value: '64', icon: <Users className="h-5 w-5" />, change: { value: 12, type: 'increase' } },
-    { title: 'Commissions', value: '₹3,80,000', icon: <DollarSign className="h-5 w-5" />, change: { value: 9, type: 'increase' } },
-    { title: 'Scheduled Viewings', value: '15', icon: <Calendar className="h-5 w-5" />, change: { value: 3, type: 'decrease' } },
+    { title: 'Active Pune Listings', value: '27', icon: <Building2 className="h-5 w-5" />, change: { value: 6, type: 'increase' as const } },
+    { title: 'Pune Leads', value: '64', icon: <Users className="h-5 w-5" />, change: { value: 12, type: 'increase' as const } },
+    { title: 'Commissions', value: '₹3,80,000', icon: <DollarSign className="h-5 w-5" />, change: { value: 9, type: 'increase' as const } },
+    { title: 'Scheduled Viewings', value: '15', icon: <Calendar className="h-5 w-5" />, change: { value: 3, type: 'decrease' as const } },
   ],
 };
 
-// Modified Buyer insights stats
+// Modified Buyer insights stats - adding empty change property to match StatsCard interface requirements
 const buyerInsightsStats = [
-  { title: 'Saved Pune Properties', value: '12', icon: <Building2 className="h-5 w-5" /> },
-  { title: 'Recent Views', value: '45', icon: <Building2 className="h-5 w-5" /> },
-  { title: 'Appointments', value: '3', icon: <Calendar className="h-5 w-5" /> },
-  { title: 'Documents', value: '8', icon: <DollarSign className="h-5 w-5" /> },
+  { title: 'Saved Pune Properties', value: '12', icon: <Building2 className="h-5 w-5" />, change: undefined },
+  { title: 'Recent Views', value: '45', icon: <Building2 className="h-5 w-5" />, change: undefined },
+  { title: 'Appointments', value: '3', icon: <Calendar className="h-5 w-5" />, change: undefined },
+  { title: 'Documents', value: '8', icon: <DollarSign className="h-5 w-5" />, change: undefined },
 ];
 
 // Mock data for activities
