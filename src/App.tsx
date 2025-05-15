@@ -25,24 +25,22 @@ const App = () => (
   <ThemeProvider attribute="class" defaultTheme="light">
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <TooltipProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/properties" element={<Properties />} />
-            <Route path="/marketplace" element={<Marketplace />} />
-            <Route path="/leads" element={<Leads />} />
-            <Route path="/transactions" element={<Transactions />} />
-            <Route path="/payments" element={<Payments />} />
-            <Route path="/agreements" element={<Agreements />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/settings" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Toaster />
-          <Sonner />
-        </TooltipProvider>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/properties" element={<Properties />} />
+          <Route path="/marketplace" element={<Marketplace />} />
+          <Route path="/leads" element={<Leads />} />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/payments" element={<Payments />} />
+          <Route path="/agreements" element={<Agreements />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/settings" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Toaster />
+        <Sonner />
       </BrowserRouter>
     </QueryClientProvider>
   </ThemeProvider>
