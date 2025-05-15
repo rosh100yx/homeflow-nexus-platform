@@ -69,6 +69,17 @@ export default {
 					navy: '#172554', 
 					black: '#000000e6',
 					gray: '#aaadb0',
+				},
+				saas: {
+					primary: '#7E69AB', // Professional purple
+					secondary: '#9b87f5', // Light purple
+					accent: '#0FA0CE', // Bright blue
+					muted: '#8E9196', // Neutral gray
+					dark: '#1A1F2C', // Dark background
+					light: '#F5F7FA', // Light background
+					success: '#2ECC71', // Green for success states
+					warning: '#F39C12', // Amber for warnings
+					error: '#E74C3C', // Red for errors
 				}
 			},
 			borderRadius: {

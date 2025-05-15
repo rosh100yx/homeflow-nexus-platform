@@ -5,83 +5,83 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 215 25% 27%;
+    --background: 210 33% 98%; /* Light clean background */
+    --foreground: 224 71% 4%; /* Dark text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card: 0 0% 100%; /* White card background */
+    --card-foreground: 224 71% 4%; /* Dark text on cards */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 224 71% 4%;
 
-    --primary: 24 95% 53%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 262 48% 55%; /* Professional purple */
+    --primary-foreground: 0 0% 100%; /* White text on purple */
 
-    --secondary: 215 85% 16%;
+    --secondary: 262 83% 74%; /* Light purple */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 30 6% 93%;
-    --muted-foreground: 215 25% 40%;
+    --muted: 210 3% 87%; /* Subtle gray backgrounds */
+    --muted-foreground: 215 15% 45%; /* Subtle text */
 
-    --accent: 24 95% 90%;
-    --accent-foreground: 215 85% 16%;
+    --accent: 199 90% 43%; /* Bright blue accents */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 10% 90%;
-    --input: 215 10% 90%;
-    --ring: 24 95% 53%;
+    --border: 220 14% 90%;
+    --input: 220 14% 90%;
+    --ring: 262 48% 55%;
 
-    --radius: 0.375rem;
+    --radius: 0.5rem;
 
-    --sidebar-background: 215 85% 16%;
+    --sidebar-background: 230 46% 14%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 24 95% 53%;
+    --sidebar-primary: 262 48% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 215 25% 27%;
+    --sidebar-accent: 225 25% 27%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 215 25% 25%;
-    --sidebar-ring: 24 95% 53%;
+    --sidebar-border: 230 30% 25%;
+    --sidebar-ring: 262 48% 55%;
   }
 
   .dark {
-    --background: 215 25% 12%;
+    --background: 230 37% 12%;
     --foreground: 0 0% 95%;
 
-    --card: 215 25% 15%;
+    --card: 230 30% 15%;
     --card-foreground: 0 0% 95%;
 
-    --popover: 215 25% 15%;
+    --popover: 230 30% 15%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 24 95% 53%;
+    --primary: 262 48% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 215 85% 16%;
+    --secondary: 262 83% 74%;
     --secondary-foreground: 0 0% 95%;
 
-    --muted: 215 25% 20%;
-    --muted-foreground: 215 10% 65%;
+    --muted: 230 25% 20%;
+    --muted-foreground: 230 10% 65%;
 
-    --accent: 215 25% 25%;
+    --accent: 230 25% 25%;
     --accent-foreground: 0 0% 95%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 95%;
 
-    --border: 215 25% 25%;
-    --input: 215 25% 25%;
-    --ring: 24 95% 53%;
+    --border: 230 25% 25%;
+    --input: 230 25% 25%;
+    --ring: 262 48% 55%;
 
-    --sidebar-background: 215 85% 16%;
+    --sidebar-background: 230 46% 14%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 24 95% 53%;
+    --sidebar-primary: 262 48% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 215 25% 27%;
+    --sidebar-accent: 230 25% 27%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 215 25% 25%;
-    --sidebar-ring: 24 95% 53%;
+    --sidebar-border: 230 25% 25%;
+    --sidebar-ring: 262 48% 55%;
   }
 }
 
@@ -118,22 +118,30 @@
   }
   
   .role-builder {
-    @apply bg-retro-orange/20 text-retro-orange;
+    @apply bg-saas-primary/20 text-saas-primary;
   }
   
   .role-realtor {
-    @apply bg-retro-navy/20 text-retro-navy;
+    @apply bg-saas-secondary/20 text-saas-secondary;
   }
   
   .role-buyer {
-    @apply bg-retro-gray/20 text-retro-black;
+    @apply bg-saas-muted/20 text-saas-dark;
   }
 
   .retro-card {
-    @apply border-2 border-retro-navy rounded-md shadow-[4px_4px_0px_0px_rgba(23,37,84,1)];
+    @apply border-2 border-saas-primary rounded-md shadow-[4px_4px_0px_0px_rgba(126,105,171,1)];
   }
   
   .retro-btn {
-    @apply bg-retro-orange text-retro-white font-medium px-4 py-2 rounded-md hover:brightness-110 shadow-[2px_2px_0px_0px_rgba(23,37,84,1)] hover:translate-y-[-2px] transition-all;
+    @apply bg-saas-primary text-white font-medium px-4 py-2 rounded-md hover:bg-saas-primary/90 shadow-[2px_2px_0px_0px_rgba(26,31,44,1)] hover:translate-y-[-2px] transition-all;
+  }
+
+  .saas-gradient {
+    @apply bg-gradient-to-r from-saas-primary to-saas-secondary;
+  }
+  
+  .glass-card {
+    @apply backdrop-blur-md bg-white/80 border border-white/20 shadow-lg;
   }
 }

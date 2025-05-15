@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   BarChart3, 
+  Building,
   FileText, 
   Home, 
   LayoutGrid, 
+  MapPin,
   Menu, 
   Percent,
   Settings, 
@@ -37,6 +39,11 @@ export const Navbar: React.FC = () => {
       label: "Properties",
       href: "/properties",
       icon: <LayoutGrid className="h-5 w-5" />,
+    },
+    {
+      label: "Marketplace",
+      href: "/marketplace",
+      icon: <MapPin className="h-5 w-5" />,
     },
     {
       label: "Leads & CRM",
@@ -77,13 +84,13 @@ export const Navbar: React.FC = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 w-60 bg-retro-navy border-r shadow-sm">
+      <div className="hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 w-60 bg-saas-dark border-r shadow-sm">
         <div className="px-3 mb-10">
           <Link to="/" className="flex items-center">
-            <div className="bg-retro-orange text-retro-white p-2 rounded mr-2">
-              <Home className="h-5 w-5" />
+            <div className="bg-saas-primary text-white p-2 rounded mr-2">
+              <Building className="h-5 w-5" />
             </div>
-            <h1 className="font-bold text-xl text-retro-white">One Parivaar</h1>
+            <h1 className="font-bold text-xl text-white">One Parivaar</h1>
           </Link>
         </div>
         
@@ -95,8 +102,8 @@ export const Navbar: React.FC = () => {
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                 isActive(item.href)
-                  ? "bg-retro-orange text-retro-white"
-                  : "text-retro-white hover:bg-retro-navy/80 hover:text-retro-orange"
+                  ? "bg-saas-primary text-white"
+                  : "text-white hover:bg-saas-dark/80 hover:text-saas-secondary"
               )}
             >
               {item.icon}
@@ -106,32 +113,32 @@ export const Navbar: React.FC = () => {
         </nav>
         
         <div className="mt-auto px-3">
-          <div className="flex items-center gap-3 p-3 bg-retro-navy/80 rounded-md border border-retro-white/20">
-            <div className="bg-retro-orange text-retro-white p-1 rounded-full">
+          <div className="flex items-center gap-3 p-3 bg-saas-dark/80 rounded-md border border-white/20">
+            <div className="bg-saas-primary text-white p-1 rounded-full">
               <User className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-medium text-retro-white">Alex Morrison</p>
-              <p className="text-xs text-retro-white/70">Admin</p>
+              <p className="text-sm font-medium text-white">Alex Morrison</p>
+              <p className="text-xs text-white/70">Admin</p>
             </div>
           </div>
         </div>
       </div>
       
       {/* Mobile Navigation Bar */}
-      <div className="lg:hidden fixed top-0 inset-x-0 h-16 border-b bg-retro-white z-30 flex items-center justify-between px-4">
+      <div className="lg:hidden fixed top-0 inset-x-0 h-16 border-b bg-white z-30 flex items-center justify-between px-4">
         <Link to="/" className="flex items-center">
-          <div className="bg-retro-orange text-retro-white p-1 rounded mr-2">
-            <Home className="h-4 w-4" />
+          <div className="bg-saas-primary text-white p-1 rounded mr-2">
+            <Building className="h-4 w-4" />
           </div>
-          <h1 className="font-bold text-lg text-retro-navy">One Parivaar</h1>
+          <h1 className="font-bold text-lg text-saas-dark">One Parivaar</h1>
         </Link>
         
         <Button 
           variant="ghost" 
           size="icon" 
           onClick={() => setShowMobileMenu(true)}
-          className="text-retro-navy"
+          className="text-saas-dark"
         >
           <Menu className="h-6 w-6" />
         </Button>
@@ -139,15 +146,15 @@ export const Navbar: React.FC = () => {
       
       {/* Mobile Menu */}
       {showMobileMenu && (
-        <div className="lg:hidden fixed inset-0 bg-retro-black/50 z-50">
-          <div className="fixed inset-y-0 right-0 w-3/4 max-w-xs bg-retro-navy p-6 h-full overflow-y-auto">
+        <div className="lg:hidden fixed inset-0 bg-black/50 z-50">
+          <div className="fixed inset-y-0 right-0 w-3/4 max-w-xs bg-saas-dark p-6 h-full overflow-y-auto">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="font-bold text-lg text-retro-white">Menu</h2>
+              <h2 className="font-bold text-lg text-white">Menu</h2>
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={() => setShowMobileMenu(false)}
-                className="text-retro-white"
+                className="text-white"
               >
                 <X className="h-5 w-5" />
               </Button>
@@ -162,8 +169,8 @@ export const Navbar: React.FC = () => {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium",
                     isActive(item.href)
-                      ? "bg-retro-orange text-retro-white"
-                      : "text-retro-white hover:bg-retro-navy/80"
+                      ? "bg-saas-primary text-white"
+                      : "text-white hover:bg-saas-dark/80"
                   )}
                 >
                   {item.icon}
@@ -172,14 +179,14 @@ export const Navbar: React.FC = () => {
               ))}
             </nav>
             
-            <div className="mt-8 pt-6 border-t border-retro-white/20">
-              <div className="flex items-center gap-3 p-3 bg-retro-navy/80 rounded-md border border-retro-white/20">
-                <div className="bg-retro-orange text-retro-white p-1 rounded-full">
+            <div className="mt-8 pt-6 border-t border-white/20">
+              <div className="flex items-center gap-3 p-3 bg-saas-dark/80 rounded-md border border-white/20">
+                <div className="bg-saas-primary text-white p-1 rounded-full">
                   <User className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-retro-white">Alex Morrison</p>
-                  <p className="text-xs text-retro-white/70">Admin</p>
+                  <p className="text-sm font-medium text-white">Alex Morrison</p>
+                  <p className="text-xs text-white/70">Admin</p>
                 </div>
               </div>
             </div>
