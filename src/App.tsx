@@ -20,32 +20,30 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <React.StrictMode>
-    <ThemeProvider attribute="class" defaultTheme="light">
-      <QueryClientProvider client={queryClient}>
+  <ThemeProvider attribute="class" defaultTheme="light">
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
         <TooltipProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/properties" element={<Properties />} />
-              <Route path="/marketplace" element={<Marketplace />} />
-              <Route path="/leads" element={<Leads />} />
-              <Route path="/transactions" element={<Dashboard />} />
-              <Route path="/payments" element={<Dashboard />} />
-              <Route path="/agreements" element={<Agreements />} />
-              <Route path="/analytics" element={<Analytics />} />
-              <Route path="/settings" element={<Dashboard />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/properties" element={<Properties />} />
+            <Route path="/marketplace" element={<Marketplace />} />
+            <Route path="/leads" element={<Leads />} />
+            <Route path="/transactions" element={<Dashboard />} />
+            <Route path="/payments" element={<Dashboard />} />
+            <Route path="/agreements" element={<Agreements />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/settings" element={<Dashboard />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
           <Toaster />
           <Sonner />
         </TooltipProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
-  </React.StrictMode>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;
