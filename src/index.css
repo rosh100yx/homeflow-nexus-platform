@@ -98,7 +98,7 @@
 
 @layer components {
   .card-hover {
-    @apply transition-all duration-200 hover:shadow-md hover:-translate-y-1;
+    @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
   }
   
   .dashboard-layout {
@@ -130,11 +130,11 @@
   }
 
   .retro-card {
-    @apply border-2 border-saas-primary rounded-md shadow-[4px_4px_0px_0px_rgba(126,105,171,1)];
+    @apply border border-[#8E9196]/30 rounded-md shadow-sm;
   }
   
   .retro-btn {
-    @apply bg-saas-primary text-white font-medium px-4 py-2 rounded-md hover:bg-saas-primary/90 shadow-[2px_2px_0px_0px_rgba(26,31,44,1)] hover:translate-y-[-2px] transition-all;
+    @apply bg-saas-primary text-white font-medium px-4 py-2 rounded-md hover:bg-saas-primary/90 shadow-sm hover:translate-y-[-1px] transition-all;
   }
 
   .saas-gradient {
@@ -142,6 +142,6 @@
   }
   
   .glass-card {
-    @apply backdrop-blur-md bg-white/80 border border-white/20 shadow-lg;
+    @apply backdrop-blur-md bg-white/80 border border-white/10 shadow-sm;
   }
 }

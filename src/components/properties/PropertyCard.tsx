@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Bed, Bath, MapPin, Tag, Home } from 'lucide-react';
+import { Bed, Bath, MapPin, Tag } from 'lucide-react';
 import { 
   Card, 
   CardContent, 
@@ -34,7 +34,7 @@ const statusConfig = {
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   return (
-    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300 retro-card">
+    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300">
       <CardHeader className="p-0">
         <div className="relative">
           <AspectRatio ratio={16 / 9}>

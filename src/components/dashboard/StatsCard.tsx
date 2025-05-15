@@ -23,7 +23,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   className,
 }) => {
   return (
-    <Card className={cn("card-hover retro-card border-2 border-retro-navy", className)}>
+    <Card className={cn("card-hover shadow-sm border border-[#8E9196]/20", className)}>
       <CardContent className="flex items-start justify-between pt-6">
         <div>
           <p className="text-sm font-medium text-retro-gray">{title}</p>
