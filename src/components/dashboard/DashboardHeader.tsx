@@ -26,17 +26,17 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   return (
     <div className="flex flex-col gap-y-4 md:flex-row md:items-center md:justify-between mb-6">
       <div>
-        <h1 className="text-2xl font-bold text-retro-navy">Pune Dashboard</h1>
-        <p className="text-retro-gray">Welcome back, Aditya Sharma</p>
+        <h1 className="text-2xl font-bold text-saas-dark">Pune Dashboard</h1>
+        <p className="text-muted-foreground">Welcome back, Aditya Sharma</p>
       </div>
       
-      <div className="flex items-center gap-3">
-        <div className="relative">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-retro-gray" />
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative w-full md:w-auto">
+          <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input 
             type="search" 
             placeholder="Search Pune properties..." 
-            className="pl-8 w-[200px] lg:w-[260px] border-retro-navy/30 focus-visible:ring-retro-orange"
+            className="pl-8 w-full md:w-[260px]"
             value={searchQuery}
             onChange={onSearchChange}
           />
@@ -45,17 +45,17 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
         <Button 
           variant="outline" 
           size="icon" 
-          className="relative border-retro-navy/30 text-retro-navy hover:text-retro-orange hover:border-retro-orange"
+          className="relative"
         >
           <Bell className="h-5 w-5" />
-          <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-retro-orange text-retro-white">3</Badge>
+          <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-saas-primary text-white">3</Badge>
         </Button>
         
         <RoleSelector activeRole={activeRole} setActiveRole={setActiveRole} />
         
         <Button 
           variant="outline"
-          className="hidden md:flex items-center gap-2 border-retro-navy/30"
+          className="hidden md:flex items-center gap-2"
           onClick={onShowBuyerInsights}
         >
           <Users className="h-4 w-4" />

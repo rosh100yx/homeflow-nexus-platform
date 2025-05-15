@@ -2,7 +2,6 @@
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
@@ -16,6 +15,9 @@ import Agreements from "./pages/Agreements";
 import Analytics from "./pages/Analytics";
 import Transactions from "./pages/Transactions";
 import Payments from "./pages/Payments";
+import Settings from "./pages/Settings";
+import Knowledgebase from "./pages/Knowledgebase";
+import AiInsights from "./pages/AiInsights";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
@@ -35,7 +37,9 @@ const App = () => (
           <Route path="/payments" element={<Payments />} />
           <Route path="/agreements" element={<Agreements />} />
           <Route path="/analytics" element={<Analytics />} />
-          <Route path="/settings" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/knowledgebase" element={<Knowledgebase />} />
+          <Route path="/ai-insights" element={<AiInsights />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

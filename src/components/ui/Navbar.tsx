@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   BarChart3, 
+  Book,
   Building,
   FileText, 
   Home, 
@@ -12,12 +13,14 @@ import {
   Percent,
   Settings, 
   ShoppingCart, 
+  Sparkles,
   User, 
   Users, 
   X 
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
 type NavItem = {
   label: string;
@@ -28,6 +31,7 @@ type NavItem = {
 export const Navbar: React.FC = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const location = useLocation();
+  const { toast } = useToast();
   
   const navItems: NavItem[] = [
     {
@@ -71,6 +75,16 @@ export const Navbar: React.FC = () => {
       icon: <BarChart3 className="h-5 w-5" />,
     },
     {
+      label: "Knowledgebase",
+      href: "/knowledgebase",
+      icon: <Book className="h-5 w-5" />,
+    },
+    {
+      label: "AI Insights",
+      href: "/ai-insights",
+      icon: <Sparkles className="h-5 w-5" />,
+    },
+    {
       label: "Settings",
       href: "/settings",
       icon: <Settings className="h-5 w-5" />,
@@ -81,11 +95,22 @@ export const Navbar: React.FC = () => {
     return location.pathname === path;
   };
 
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (location.pathname === path) {
+      e.preventDefault();
+      toast({
+        title: "Already on this page",
+        description: `You're already on the ${path.replace('/', '')} page`,
+        duration: 2000,
+      });
+    }
+  };
+
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 w-60 bg-saas-dark border-r shadow-sm">
-        <div className="px-3 mb-10">
+      <div className="hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 w-60 bg-saas-dark border-r shadow-sm z-40 overflow-y-auto scrollbar-none">
+        <div className="px-3 mb-6">
           <Link to="/" className="flex items-center">
             <div className="bg-saas-primary text-white p-2 rounded mr-2">
               <Building className="h-5 w-5" />
@@ -94,11 +119,12 @@ export const Navbar: React.FC = () => {
           </Link>
         </div>
         
-        <nav className="flex-1 space-y-1">
+        <nav className="flex-1 space-y-1 overflow-y-auto">
           {navItems.map((item) => (
             <Link
               key={item.href}
               to={item.href}
+              onClick={(e) => handleNavigation(e, item.href)}
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                 isActive(item.href)
@@ -112,14 +138,14 @@ export const Navbar: React.FC = () => {
           ))}
         </nav>
         
-        <div className="mt-auto px-3">
+        <div className="mt-auto px-3 pt-3">
           <div className="flex items-center gap-3 p-3 bg-saas-dark/80 rounded-md border border-white/20">
             <div className="bg-saas-primary text-white p-1 rounded-full">
               <User className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-medium text-white">Alex Morrison</p>
-              <p className="text-xs text-white/70">Admin</p>
+              <p className="text-sm font-medium text-white">Aditya Sharma</p>
+              <p className="text-xs text-white/70">Administrator</p>
             </div>
           </div>
         </div>
@@ -148,7 +174,7 @@ export const Navbar: React.FC = () => {
       {showMobileMenu && (
         <div className="lg:hidden fixed inset-0 bg-black/50 z-50">
           <div className="fixed inset-y-0 right-0 w-3/4 max-w-xs bg-saas-dark p-6 h-full overflow-y-auto">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-6">
               <h2 className="font-bold text-lg text-white">Menu</h2>
               <Button 
                 variant="ghost" 
@@ -160,12 +186,15 @@ export const Navbar: React.FC = () => {
               </Button>
             </div>
             
-            <nav className="space-y-4">
+            <nav className="space-y-4 overflow-y-auto">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
-                  onClick={() => setShowMobileMenu(false)}
+                  onClick={(e) => {
+                    handleNavigation(e, item.href);
+                    setShowMobileMenu(false);
+                  }}
                   className={cn(
                     "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium",
                     isActive(item.href)
@@ -185,8 +214,8 @@ export const Navbar: React.FC = () => {
                   <User className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-white">Alex Morrison</p>
-                  <p className="text-xs text-white/70">Admin</p>
+                  <p className="text-sm font-medium text-white">Aditya Sharma</p>
+                  <p className="text-xs text-white/70">Administrator</p>
                 </div>
               </div>
             </div>

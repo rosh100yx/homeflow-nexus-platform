@@ -1,155 +1,248 @@
 
-import React from 'react';
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Slider } from "@/components/ui/slider";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
+import React, { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Slider } from '@/components/ui/slider';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
-export const MarketplaceFilters: React.FC = () => {
+interface MarketplaceFiltersProps {
+  onFilterChange?: (filters: any) => void;
+}
+
+export const MarketplaceFilters: React.FC<MarketplaceFiltersProps> = ({ onFilterChange }) => {
+  const { toast } = useToast();
+  const [priceRange, setPriceRange] = useState<[number, number]>([20, 200]);
+  const [searchParams, setSearchParams] = useState({
+    location: '',
+    propertyType: [] as string[],
+    bedrooms: [] as string[],
+    amenities: [] as string[]
+  });
+  
+  const handleCheckboxChange = (category: 'propertyType' | 'bedrooms' | 'amenities', value: string) => {
+    setSearchParams(prev => {
+      const isSelected = prev[category].includes(value);
+      let updated;
+      
+      if (isSelected) {
+        updated = prev[category].filter(item => item !== value);
+      } else {
+        updated = [...prev[category], value];
+      }
+      
+      return {
+        ...prev,
+        [category]: updated
+      };
+    });
+  };
+  
+  const handleApplyFilters = () => {
+    if (onFilterChange) {
+      onFilterChange({
+        priceRange: `₹${priceRange[0]} Lac - ₹${priceRange[1]} Lac`,
+        ...searchParams
+      });
+    }
+    
+    toast({
+      title: "Filters Applied",
+      description: `Showing properties in ${searchParams.location || 'Pune'} between ₹${priceRange[0]} Lac - ₹${priceRange[1]} Lac`,
+      duration: 3000,
+    });
+  };
+  
+  const handleResetFilters = () => {
+    setPriceRange([20, 200]);
+    setSearchParams({
+      location: '',
+      propertyType: [],
+      bedrooms: [],
+      amenities: []
+    });
+    
+    toast({
+      title: "Filters Reset",
+      description: "All filters have been cleared",
+      duration: 2000,
+    });
+  };
+  
   return (
-    <div className="bg-white p-6 rounded-lg border mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div className="space-y-4">
-        <h3 className="font-medium text-saas-dark">Price Range</h3>
-        <div className="flex items-center justify-between gap-4 mb-2">
+    <Card className="mb-6">
+      <CardContent className="p-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
-            <Label htmlFor="min-price">Min</Label>
-            <Input id="min-price" placeholder="₹0" className="mt-1" />
+            <Label htmlFor="location" className="text-sm font-medium mb-2 block">Location</Label>
+            <Input 
+              id="location" 
+              placeholder="e.g. Koregaon Park" 
+              value={searchParams.location}
+              onChange={(e) => setSearchParams(prev => ({ ...prev, location: e.target.value }))}
+            />
+            <div className="mt-2 grid grid-cols-2 gap-1 text-xs">
+              <Button variant="ghost" size="sm" className="h-7 justify-start font-normal"
+                onClick={() => setSearchParams(prev => ({ ...prev, location: 'Koregaon Park' }))}>
+                Koregaon Park
+              </Button>
+              <Button variant="ghost" size="sm" className="h-7 justify-start font-normal"
+                onClick={() => setSearchParams(prev => ({ ...prev, location: 'Baner' }))}>
+                Baner
+              </Button>
+              <Button variant="ghost" size="sm" className="h-7 justify-start font-normal"
+                onClick={() => setSearchParams(prev => ({ ...prev, location: 'Viman Nagar' }))}>
+                Viman Nagar
+              </Button>
+              <Button variant="ghost" size="sm" className="h-7 justify-start font-normal"
+                onClick={() => setSearchParams(prev => ({ ...prev, location: 'Hinjewadi' }))}>
+                Hinjewadi
+              </Button>
+            </div>
           </div>
-          <div className="text-center pt-4">to</div>
+          
           <div>
-            <Label htmlFor="max-price">Max</Label>
-            <Input id="max-price" placeholder="₹5 Cr" className="mt-1" />
+            <Label className="text-sm font-medium mb-2 block">Price Range (₹ in Lac)</Label>
+            <div className="px-2">
+              <Slider 
+                value={priceRange} 
+                min={5} 
+                max={500} 
+                step={5}
+                onValueChange={(value) => setPriceRange(value as [number, number])}
+                className="mt-6"
+              />
+            </div>
+            <div className="flex justify-between mt-2 text-sm">
+              <span>₹{priceRange[0]} Lac</span>
+              <span>₹{priceRange[1]} Lac</span>
+            </div>
           </div>
-        </div>
-        <Slider defaultValue={[20, 80]} max={100} step={1} />
-      </div>
-
-      <div className="space-y-4">
-        <h3 className="font-medium text-saas-dark">Property Type</h3>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="flex items-center space-x-2">
-            <Checkbox id="apartment" />
-            <label htmlFor="apartment" className="text-sm">Apartment</label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="house" />
-            <label htmlFor="house" className="text-sm">House</label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="villa" />
-            <label htmlFor="villa" className="text-sm">Villa</label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="plot" />
-            <label htmlFor="plot" className="text-sm">Plot</label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="commercial" />
-            <label htmlFor="commercial" className="text-sm">Commercial</label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="office" />
-            <label htmlFor="office" className="text-sm">Office</label>
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <h3 className="font-medium text-saas-dark">Bedrooms & Bathrooms</h3>
-        <div className="grid grid-cols-2 gap-4">
+          
           <div>
-            <Label htmlFor="bedrooms">Bedrooms</Label>
-            <Select>
-              <SelectTrigger id="bedrooms" className="mt-1">
-                <SelectValue placeholder="Any" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="any">Any</SelectItem>
-                <SelectItem value="1">1+</SelectItem>
-                <SelectItem value="2">2+</SelectItem>
-                <SelectItem value="3">3+</SelectItem>
-                <SelectItem value="4">4+</SelectItem>
-                <SelectItem value="5">5+</SelectItem>
-              </SelectContent>
-            </Select>
+            <Label className="text-sm font-medium mb-2 block">Property Type</Label>
+            <div className="space-y-2">
+              <div className="flex items-center">
+                <Checkbox 
+                  id="apartment" 
+                  checked={searchParams.propertyType.includes('apartment')}
+                  onCheckedChange={() => handleCheckboxChange('propertyType', 'apartment')}
+                />
+                <Label htmlFor="apartment" className="ml-2 text-sm font-normal">Apartment</Label>
+              </div>
+              <div className="flex items-center">
+                <Checkbox 
+                  id="villa" 
+                  checked={searchParams.propertyType.includes('villa')}
+                  onCheckedChange={() => handleCheckboxChange('propertyType', 'villa')}
+                />
+                <Label htmlFor="villa" className="ml-2 text-sm font-normal">Villa</Label>
+              </div>
+              <div className="flex items-center">
+                <Checkbox 
+                  id="house" 
+                  checked={searchParams.propertyType.includes('house')}
+                  onCheckedChange={() => handleCheckboxChange('propertyType', 'house')}
+                />
+                <Label htmlFor="house" className="ml-2 text-sm font-normal">Independent House</Label>
+              </div>
+              <div className="flex items-center">
+                <Checkbox 
+                  id="plot" 
+                  checked={searchParams.propertyType.includes('plot')}
+                  onCheckedChange={() => handleCheckboxChange('propertyType', 'plot')}
+                />
+                <Label htmlFor="plot" className="ml-2 text-sm font-normal">Plot/Land</Label>
+              </div>
+            </div>
           </div>
-          <div>
-            <Label htmlFor="bathrooms">Bathrooms</Label>
-            <Select>
-              <SelectTrigger id="bathrooms" className="mt-1">
-                <SelectValue placeholder="Any" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="any">Any</SelectItem>
-                <SelectItem value="1">1+</SelectItem>
-                <SelectItem value="2">2+</SelectItem>
-                <SelectItem value="3">3+</SelectItem>
-                <SelectItem value="4">4+</SelectItem>
-              </SelectContent>
-            </Select>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <Label className="text-sm font-medium mb-2 block">Bedrooms</Label>
+              <div className="space-y-2">
+                <div className="flex items-center">
+                  <Checkbox 
+                    id="1bhk" 
+                    checked={searchParams.bedrooms.includes('1')}
+                    onCheckedChange={() => handleCheckboxChange('bedrooms', '1')}
+                  />
+                  <Label htmlFor="1bhk" className="ml-2 text-sm font-normal">1 BHK</Label>
+                </div>
+                <div className="flex items-center">
+                  <Checkbox 
+                    id="2bhk" 
+                    checked={searchParams.bedrooms.includes('2')}
+                    onCheckedChange={() => handleCheckboxChange('bedrooms', '2')}
+                  />
+                  <Label htmlFor="2bhk" className="ml-2 text-sm font-normal">2 BHK</Label>
+                </div>
+                <div className="flex items-center">
+                  <Checkbox 
+                    id="3bhk" 
+                    checked={searchParams.bedrooms.includes('3')}
+                    onCheckedChange={() => handleCheckboxChange('bedrooms', '3')}
+                  />
+                  <Label htmlFor="3bhk" className="ml-2 text-sm font-normal">3 BHK</Label>
+                </div>
+                <div className="flex items-center">
+                  <Checkbox 
+                    id="4plusbhk" 
+                    checked={searchParams.bedrooms.includes('4+')}
+                    onCheckedChange={() => handleCheckboxChange('bedrooms', '4+')}
+                  />
+                  <Label htmlFor="4plusbhk" className="ml-2 text-sm font-normal">4+ BHK</Label>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <Label className="text-sm font-medium mb-2 block">Amenities</Label>
+              <div className="space-y-2">
+                <div className="flex items-center">
+                  <Checkbox 
+                    id="parking" 
+                    checked={searchParams.amenities.includes('parking')}
+                    onCheckedChange={() => handleCheckboxChange('amenities', 'parking')}
+                  />
+                  <Label htmlFor="parking" className="ml-2 text-sm font-normal">Parking</Label>
+                </div>
+                <div className="flex items-center">
+                  <Checkbox 
+                    id="gym" 
+                    checked={searchParams.amenities.includes('gym')}
+                    onCheckedChange={() => handleCheckboxChange('amenities', 'gym')}
+                  />
+                  <Label htmlFor="gym" className="ml-2 text-sm font-normal">Gym</Label>
+                </div>
+                <div className="flex items-center">
+                  <Checkbox 
+                    id="pool" 
+                    checked={searchParams.amenities.includes('pool')}
+                    onCheckedChange={() => handleCheckboxChange('amenities', 'pool')}
+                  />
+                  <Label htmlFor="pool" className="ml-2 text-sm font-normal">Swimming Pool</Label>
+                </div>
+                <div className="flex items-center">
+                  <Checkbox 
+                    id="security" 
+                    checked={searchParams.amenities.includes('security')}
+                    onCheckedChange={() => handleCheckboxChange('amenities', 'security')}
+                  />
+                  <Label htmlFor="security" className="ml-2 text-sm font-normal">24x7 Security</Label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div>
-          <Label htmlFor="area">Area (sq.ft)</Label>
-          <div className="flex items-center gap-2">
-            <Input id="min-area" placeholder="Min" className="mt-1" />
-            <span>-</span>
-            <Input id="max-area" placeholder="Max" className="mt-1" />
-          </div>
+        
+        <div className="flex justify-end gap-2 mt-6">
+          <Button variant="outline" onClick={handleResetFilters}>Reset Filters</Button>
+          <Button onClick={handleApplyFilters}>Apply Filters</Button>
         </div>
-      </div>
-
-      <div className="space-y-4">
-        <h3 className="font-medium text-saas-dark">Location & Amenities</h3>
-        <div>
-          <Label htmlFor="location">Location</Label>
-          <Select>
-            <SelectTrigger id="location" className="mt-1">
-              <SelectValue placeholder="All Pune" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Pune</SelectItem>
-              <SelectItem value="koregaon-park">Koregaon Park</SelectItem>
-              <SelectItem value="baner">Baner</SelectItem>
-              <SelectItem value="viman-nagar">Viman Nagar</SelectItem>
-              <SelectItem value="kothrud">Kothrud</SelectItem>
-              <SelectItem value="hinjewadi">Hinjewadi</SelectItem>
-              <SelectItem value="magarpatta">Magarpatta City</SelectItem>
-              <SelectItem value="wakad">Wakad</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="flex items-center space-x-2">
-            <Checkbox id="gym" />
-            <label htmlFor="gym" className="text-sm">Gym</label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="pool" />
-            <label htmlFor="pool" className="text-sm">Swimming Pool</label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="parking" />
-            <label htmlFor="parking" className="text-sm">Parking</label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="garden" />
-            <label htmlFor="garden" className="text-sm">Garden</label>
-          </div>
-        </div>
-        <div className="flex justify-end gap-2 pt-2">
-          <Button variant="outline">Reset</Button>
-          <Button>Apply Filters</Button>
-        </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
