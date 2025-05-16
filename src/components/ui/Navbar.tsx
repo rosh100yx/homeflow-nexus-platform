@@ -112,7 +112,7 @@ export const Navbar: React.FC = () => {
       <div className="hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 w-60 bg-saas-dark border-r shadow-sm z-40 overflow-y-auto scrollbar-none">
         <div className="px-3 mb-6">
           <Link to="/" className="flex items-center">
-            <div className="bg-saas-primary text-white p-2 rounded mr-2">
+            <div className="bg-[#FF5349] text-white p-2 rounded mr-2">
               <Building className="h-5 w-5" />
             </div>
             <h1 className="font-bold text-xl text-white">One Parivaar</h1>
@@ -128,8 +128,8 @@ export const Navbar: React.FC = () => {
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                 isActive(item.href)
-                  ? "bg-saas-primary text-white"
-                  : "text-white hover:bg-saas-dark/80 hover:text-saas-secondary"
+                  ? "bg-[#FF5349] text-white"
+                  : "text-white hover:bg-saas-dark/80 hover:text-[#FF5349]"
               )}
             >
               {item.icon}
@@ -140,7 +140,7 @@ export const Navbar: React.FC = () => {
         
         <div className="mt-auto px-3 pt-3">
           <div className="flex items-center gap-3 p-3 bg-saas-dark/80 rounded-md border border-white/20">
-            <div className="bg-saas-primary text-white p-1 rounded-full">
+            <div className="bg-[#FF5349] text-white p-1 rounded-full">
               <User className="h-5 w-5" />
             </div>
             <div>
@@ -154,7 +154,7 @@ export const Navbar: React.FC = () => {
       {/* Mobile Navigation Bar */}
       <div className="lg:hidden fixed top-0 inset-x-0 h-16 border-b bg-white z-30 flex items-center justify-between px-4">
         <Link to="/" className="flex items-center">
-          <div className="bg-saas-primary text-white p-1 rounded mr-2">
+          <div className="bg-[#FF5349] text-white p-1 rounded mr-2">
             <Building className="h-4 w-4" />
           </div>
           <h1 className="font-bold text-lg text-saas-dark">One Parivaar</h1>
@@ -198,7 +198,7 @@ export const Navbar: React.FC = () => {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium",
                     isActive(item.href)
-                      ? "bg-saas-primary text-white"
+                      ? "bg-[#FF5349] text-white"
                       : "text-white hover:bg-saas-dark/80"
                   )}
                 >
@@ -210,7 +210,7 @@ export const Navbar: React.FC = () => {
             
             <div className="mt-8 pt-6 border-t border-white/20">
               <div className="flex items-center gap-3 p-3 bg-saas-dark/80 rounded-md border border-white/20">
-                <div className="bg-saas-primary text-white p-1 rounded-full">
+                <div className="bg-[#FF5349] text-white p-1 rounded-full">
                   <User className="h-5 w-5" />
                 </div>
                 <div>

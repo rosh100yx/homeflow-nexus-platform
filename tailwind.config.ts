@@ -64,16 +64,16 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				retro: {
-					orange: '#F97316',
+					orange: '#FF5349', // Updated from #F97316 to #FF5349
 					white: '#FFFFFF',
 					navy: '#172554', 
 					black: '#000000e6',
 					gray: '#aaadb0',
 				},
 				saas: {
-					primary: '#7E69AB', // Professional purple
-					secondary: '#9b87f5', // Light purple
-					accent: '#0FA0CE', // Bright blue
+					primary: '#FF5349', // Updated from purple to #FF5349
+					secondary: '#FF5349', // Updated from light purple to #FF5349
+					accent: '#FF5349', // Updated from blue to #FF5349
 					muted: '#8E9196', // Neutral gray
 					dark: '#1A1F2C', // Dark background
 					light: '#F5F7FA', // Light background

@@ -42,7 +42,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
             )}
           </div>
         </div>
-        <div className="p-2 bg-retro-orange/10 text-retro-orange rounded-md">
+        <div className="p-2 bg-[#FF5349]/10 text-[#FF5349] rounded-md">
           {icon}
         </div>
       </CardContent>
