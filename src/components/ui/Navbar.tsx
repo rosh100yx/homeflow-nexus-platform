@@ -5,6 +5,7 @@ import {
   BarChart3, 
   Book,
   Building,
+  ChevronDown,
   FileText, 
   Home, 
   LayoutGrid, 
@@ -21,15 +22,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import { 
+  Collapsible, 
+  CollapsibleContent, 
+  CollapsibleTrigger 
+} from "@/components/ui/collapsible";
 
 type NavItem = {
   label: string;
   href: string;
   icon: React.ReactNode;
+  subItems?: { label: string; href: string }[];
 };
 
 export const Navbar: React.FC = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
   const { toast } = useToast();
   
@@ -43,6 +51,10 @@ export const Navbar: React.FC = () => {
       label: "Properties",
       href: "/properties",
       icon: <LayoutGrid className="h-5 w-5" />,
+      subItems: [
+        { label: "My Properties", href: "/properties?filter=my" },
+        { label: "Featured", href: "/properties?filter=featured" }
+      ]
     },
     {
       label: "Marketplace",
@@ -109,46 +121,115 @@ export const Navbar: React.FC = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 w-60 bg-saas-dark border-r shadow-sm z-40 overflow-y-auto scrollbar-none">
-        <div className="px-3 mb-6">
+      <div className={cn(
+        "hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 bg-saas-dark border-r shadow-sm z-40 overflow-y-auto scrollbar-none transition-all duration-300",
+        isCollapsed ? "w-16" : "w-60"
+      )}>
+        <div className={cn("px-3 mb-6 flex items-center", isCollapsed && "justify-center")}>
           <Link to="/" className="flex items-center">
             <div className="bg-[#FF5349] text-white p-2 rounded mr-2">
               <Building className="h-5 w-5" />
             </div>
-            <h1 className="font-bold text-xl text-white">One Parivaar</h1>
+            {!isCollapsed && <h1 className="font-bold text-xl text-white">One Parivaar</h1>}
           </Link>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setIsCollapsed(!isCollapsed)} 
+            className={cn(
+              "ml-auto text-white hover:bg-sidebar-accent hover:text-white",
+              isCollapsed && "hidden"
+            )}
+          >
+            <ChevronDown className="h-4 w-4 transform rotate-90" />
+          </Button>
         </div>
+        
+        {isCollapsed && (
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setIsCollapsed(!isCollapsed)} 
+            className="mx-auto mb-4 text-white hover:bg-sidebar-accent hover:text-white"
+          >
+            <ChevronDown className="h-4 w-4" />
+          </Button>
+        )}
         
         <nav className="flex-1 space-y-1 overflow-y-auto">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              onClick={(e) => handleNavigation(e, item.href)}
-              className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                isActive(item.href)
-                  ? "bg-[#FF5349] text-white"
-                  : "text-white hover:bg-saas-dark/80 hover:text-[#FF5349]"
+            <div key={item.href}>
+              {item.subItems ? (
+                <Collapsible className="w-full">
+                  <CollapsibleTrigger className={cn(
+                    "flex items-center gap-3 w-full px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    isActive(item.href)
+                      ? "bg-[#FF5349] text-white"
+                      : "text-white hover:bg-saas-dark/80 hover:text-[#FF5349]"
+                  )}>
+                    <div className="flex items-center gap-3 flex-1">
+                      {item.icon}
+                      {!isCollapsed && <span>{item.label}</span>}
+                    </div>
+                    {!isCollapsed && <ChevronDown className="h-4 w-4" />}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className={cn(
+                    "pl-10 space-y-1 mt-1",
+                    isCollapsed && "hidden"
+                  )}>
+                    {item.subItems.map((subItem) => (
+                      <Link
+                        key={subItem.href}
+                        to={subItem.href}
+                        className="flex py-1 text-sm text-white/80 hover:text-[#FF5349]"
+                      >
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </CollapsibleContent>
+                </Collapsible>
+              ) : (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={(e) => handleNavigation(e, item.href)}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    isCollapsed ? "justify-center" : "",
+                    isActive(item.href)
+                      ? "bg-[#FF5349] text-white"
+                      : "text-white hover:bg-saas-dark/80 hover:text-[#FF5349]"
+                  )}
+                >
+                  {item.icon}
+                  {!isCollapsed && <span>{item.label}</span>}
+                </Link>
               )}
-            >
-              {item.icon}
-              {item.label}
-            </Link>
+            </div>
           ))}
         </nav>
         
-        <div className="mt-auto px-3 pt-3">
-          <div className="flex items-center gap-3 p-3 bg-saas-dark/80 rounded-md border border-white/20">
+        {!isCollapsed && (
+          <div className="mt-auto px-3 pt-3">
+            <div className="flex items-center gap-3 p-3 bg-saas-dark/80 rounded-md border border-white/20">
+              <div className="bg-[#FF5349] text-white p-1 rounded-full">
+                <User className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-white">Aditya Sharma</p>
+                <p className="text-xs text-white/70">Administrator</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {isCollapsed && (
+          <div className="mt-auto px-3 pt-3 flex justify-center">
             <div className="bg-[#FF5349] text-white p-1 rounded-full">
               <User className="h-5 w-5" />
             </div>
-            <div>
-              <p className="text-sm font-medium text-white">Aditya Sharma</p>
-              <p className="text-xs text-white/70">Administrator</p>
-            </div>
           </div>
-        </div>
+        )}
       </div>
       
       {/* Mobile Navigation Bar */}
@@ -188,23 +269,54 @@ export const Navbar: React.FC = () => {
             
             <nav className="space-y-4 overflow-y-auto">
               {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  onClick={(e) => {
-                    handleNavigation(e, item.href);
-                    setShowMobileMenu(false);
-                  }}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium",
-                    isActive(item.href)
-                      ? "bg-[#FF5349] text-white"
-                      : "text-white hover:bg-saas-dark/80"
+                <div key={item.href}>
+                  {item.subItems ? (
+                    <Collapsible className="w-full">
+                      <CollapsibleTrigger className={cn(
+                        "flex items-center justify-between w-full px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                        isActive(item.href)
+                          ? "bg-[#FF5349] text-white"
+                          : "text-white hover:bg-saas-dark/80"
+                      )}>
+                        <div className="flex items-center gap-3">
+                          {item.icon}
+                          <span>{item.label}</span>
+                        </div>
+                        <ChevronDown className="h-4 w-4" />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="pl-10 space-y-1 mt-1">
+                        {item.subItems.map((subItem) => (
+                          <Link
+                            key={subItem.href}
+                            to={subItem.href}
+                            onClick={() => setShowMobileMenu(false)}
+                            className="flex py-1 text-sm text-white/80 hover:text-[#FF5349]"
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+                  ) : (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      onClick={(e) => {
+                        handleNavigation(e, item.href);
+                        setShowMobileMenu(false);
+                      }}
+                      className={cn(
+                        "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium",
+                        isActive(item.href)
+                          ? "bg-[#FF5349] text-white"
+                          : "text-white hover:bg-saas-dark/80"
+                      )}
+                    >
+                      {item.icon}
+                      {item.label}
+                    </Link>
                   )}
-                >
-                  {item.icon}
-                  {item.label}
-                </Link>
+                </div>
               ))}
             </nav>
             
@@ -227,7 +339,7 @@ export const Navbar: React.FC = () => {
       <div className="lg:hidden h-16" />
       
       {/* Content Padding for Desktop */}
-      <div className="hidden lg:block lg:ml-60" />
+      <div className="hidden lg:block" style={{ marginLeft: isCollapsed ? '4rem' : '15rem' }} />
     </>
   );
 };
