@@ -86,7 +86,7 @@ const propertyData = [
 ];
 
 const Marketplace = () => {
-  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'map'>('list');
+  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'map'>('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [showAiInsights, setShowAiInsights] = useState(false);
 
@@ -123,7 +123,7 @@ const Marketplace = () => {
             <Button 
               variant="outline" 
               onClick={() => setShowFilters(!showFilters)}
-              className={showFilters ? "bg-[#FF5349]/10 text-[#FF5349]" : ""}
+              className={showFilters ? "bg-saas-primary/10 text-saas-primary" : ""}
             >
               <Filter className="h-4 w-4 mr-2" />
               Filters
@@ -132,7 +132,7 @@ const Marketplace = () => {
             <Button
               variant="outline"
               onClick={() => setShowAiInsights(!showAiInsights)}
-              className={showAiInsights ? "bg-[#FF5349]/10 text-[#FF5349]" : ""}
+              className={showAiInsights ? "bg-saas-secondary/10 text-saas-secondary" : ""}
             >
               <Sparkles className="h-4 w-4 mr-2" />
               AI Insights
@@ -172,13 +172,9 @@ const Marketplace = () => {
         {viewMode === 'map' ? (
           <MarketplaceMap properties={propertyData} />
         ) : (
-          <div className="flex flex-col space-y-6">
+          <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
             {propertyData.map((property) => (
-              <PropertyCard 
-                key={property.id} 
-                property={property} 
-                view={viewMode === 'grid' ? 'grid' : 'row'} 
-              />
+              <PropertyCard key={property.id} property={property} />
             ))}
           </div>
         )}
