@@ -50,9 +50,9 @@ export const Navbar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
     'main': true,
-    'others': false,
-    'documents': false,
-    'favorites': false
+    'others': true,
+    'documents': true,
+    'favorites': true
   });
   const location = useLocation();
   const { toast } = useToast();
@@ -179,7 +179,7 @@ export const Navbar: React.FC = () => {
   const renderNavItem = (item: NavItem) => {
     if (item.subItems) {
       return (
-        <Collapsible key={item.href} className="w-full">
+        <Collapsible key={item.href} className="w-full" defaultOpen={true}>
           <CollapsibleTrigger className={cn(
             "flex items-center w-full px-3 py-2 rounded-md text-sm font-medium transition-colors",
             isCollapsed ? "justify-center" : "",
@@ -256,7 +256,7 @@ export const Navbar: React.FC = () => {
     <>
       {/* Desktop Navigation */}
       <div className={cn(
-        "hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 bg-saas-dark border-r shadow-sm z-40 overflow-y-auto scrollbar-none transition-all duration-300",
+        "hidden lg:flex fixed inset-y-0 left-0 flex-col py-4 px-3 bg-saas-dark border-r border-white/10 shadow-sm z-40 overflow-y-auto scrollbar-none transition-all duration-300",
         isCollapsed ? "w-16" : "w-60"
       )}>
         <div className={cn("px-3 mb-6 flex items-center", isCollapsed && "justify-center")}>
@@ -286,7 +286,7 @@ export const Navbar: React.FC = () => {
             onClick={() => setIsCollapsed(!isCollapsed)} 
             className="mx-auto mb-4 text-white hover:bg-sidebar-accent hover:text-white"
           >
-            <ChevronDown className="h-4 w-4" />
+            <Menu className="h-4 w-4" />
           </Button>
         )}
         
@@ -408,7 +408,7 @@ export const Navbar: React.FC = () => {
                       {group.items.map(item => (
                         <div key={item.href}>
                           {item.subItems ? (
-                            <Collapsible className="w-full">
+                            <Collapsible className="w-full" defaultOpen={true}>
                               <CollapsibleTrigger className={cn(
                                 "flex items-center justify-between w-full px-3 py-2 rounded-md text-sm font-medium transition-colors",
                                 isActive(item.href)
