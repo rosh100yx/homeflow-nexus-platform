@@ -18,6 +18,7 @@ import Payments from "./pages/Payments";
 import Settings from "./pages/Settings";
 import Knowledgebase from "./pages/Knowledgebase";
 import AiInsights from "./pages/AiInsights";
+import DataImport from "./pages/DataImport";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/settings" element={<Settings />} />
             <Route path="/knowledgebase" element={<Knowledgebase />} />
             <Route path="/ai-insights" element={<AiInsights />} />
+            <Route path="/data-import" element={<DataImport />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
