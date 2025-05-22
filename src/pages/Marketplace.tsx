@@ -86,7 +86,7 @@ const propertyData = [
 ];
 
 const Marketplace = () => {
-  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'map'>('grid');
+  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'map'>('list');
   const [showFilters, setShowFilters] = useState(false);
   const [showAiInsights, setShowAiInsights] = useState(false);
 
@@ -94,7 +94,7 @@ const Marketplace = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="container mx-auto px-4 py-6">
+      <main className="container mx-auto px-4 py-6 lg:ml-60">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-saas-dark mb-1">Property Marketplace</h1>
