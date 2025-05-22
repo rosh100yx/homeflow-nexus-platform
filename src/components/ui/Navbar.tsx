@@ -222,12 +222,6 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
       )}
-      
-      {/* Content Padding for Mobile */}
-      <div className="lg:hidden h-16" />
-      
-      {/* Content Padding for Desktop */}
-      <div className="hidden lg:block lg:ml-60" />
     </>
   );
 };

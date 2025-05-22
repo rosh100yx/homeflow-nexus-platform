@@ -178,11 +178,11 @@ const Dashboard: React.FC = () => {
   );
   
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex overflow-hidden">
       <Navbar />
       
-      <div className="flex-1 overflow-auto">
-        <div className="container mx-auto px-4 py-6 lg:ml-60 max-w-7xl">
+      <main className="flex-1 overflow-y-auto">
+        <div className="max-w-full mx-auto px-4 py-6 lg:pl-6 lg:pr-6 w-full">
           <DashboardHeader 
             activeRole={activeRole} 
             setActiveRole={setActiveRole}
@@ -290,7 +290,7 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

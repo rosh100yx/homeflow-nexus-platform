@@ -26,26 +26,28 @@ const queryClient = new QueryClient();
 const App = () => (
   <ThemeProvider attribute="class" defaultTheme="light">
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/properties" element={<Properties />} />
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/leads" element={<Leads />} />
-          <Route path="/transactions" element={<Transactions />} />
-          <Route path="/payments" element={<Payments />} />
-          <Route path="/agreements" element={<Agreements />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/knowledgebase" element={<Knowledgebase />} />
-          <Route path="/ai-insights" element={<AiInsights />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Toaster />
-        <Sonner />
-      </BrowserRouter>
+      <div className="flex h-screen overflow-hidden">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/properties" element={<Properties />} />
+            <Route path="/marketplace" element={<Marketplace />} />
+            <Route path="/leads" element={<Leads />} />
+            <Route path="/transactions" element={<Transactions />} />
+            <Route path="/payments" element={<Payments />} />
+            <Route path="/agreements" element={<Agreements />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/knowledgebase" element={<Knowledgebase />} />
+            <Route path="/ai-insights" element={<AiInsights />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Toaster />
+          <Sonner />
+        </BrowserRouter>
+      </div>
     </QueryClientProvider>
   </ThemeProvider>
 );

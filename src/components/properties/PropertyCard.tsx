@@ -34,7 +34,7 @@ const statusConfig = {
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   return (
-    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300">
+    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300 w-full">
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/3 lg:w-2/5">
           <div className="relative">
