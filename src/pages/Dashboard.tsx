@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { PageContainer } from '@/components/layout/PageContainer';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { StatsCard } from '@/components/dashboard/StatsCard';
@@ -9,38 +9,103 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
+type Role = 'builder' | 'realtor';
+
 const Dashboard = () => {
+  // Add state for the required props
+  const [activeRole, setActiveRole] = useState<Role>('builder');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Handler functions
+  const handleShowBuyerInsights = () => {
+    console.log('Show buyer insights');
+  };
+  
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Mock activity data for ActivityFeed
+  const activityData = [
+    {
+      id: '1',
+      title: 'New Lead Generated',
+      description: 'Rahul Sharma showed interest in Ruby Tower',
+      time: '2 hours ago',
+      type: 'lead' as const,
+      user: {
+        name: 'Neha Patel',
+        avatar: ''
+      }
+    },
+    {
+      id: '2',
+      title: 'Property Viewing Scheduled',
+      description: 'Site visit for Blue Heights scheduled tomorrow',
+      time: '4 hours ago',
+      type: 'property' as const,
+      user: {
+        name: 'Vikram Singh',
+        avatar: ''
+      }
+    },
+    {
+      id: '3',
+      title: 'Payment Received',
+      description: '₹2.5L booking amount received for Serene Villas',
+      time: '1 day ago',
+      type: 'payment' as const,
+      user: {
+        name: 'Priya Desai',
+        avatar: ''
+      }
+    },
+    {
+      id: '4',
+      title: 'Agreement Generated',
+      description: 'Sale agreement created for Green Valley unit 302',
+      time: '2 days ago',
+      type: 'document' as const,
+      user: {
+        name: 'Aditya Sharma',
+        avatar: ''
+      }
+    }
+  ];
+
   return (
     <PageContainer>
-      <DashboardHeader />
+      <DashboardHeader 
+        activeRole={activeRole}
+        setActiveRole={setActiveRole}
+        onShowBuyerInsights={handleShowBuyerInsights}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+      />
       
       <div className="stats-grid mb-8">
         <StatsCard
           title="Total Properties"
           value="126"
-          description="+12% from last month"
-          trend="up"
+          change={{ value: 12, type: 'increase' }}
           icon={<Home className="h-5 w-5" />}
         />
         <StatsCard
           title="Active Leads"
           value="84"
-          description="+24% from last month"
-          trend="up"
+          change={{ value: 24, type: 'increase' }}
           icon={<Users className="h-5 w-5" />}
         />
         <StatsCard
           title="Projects"
           value="16"
-          description="+2 new this month"
-          trend="up"
+          change={{ value: 2, type: 'increase' }}
           icon={<Building2 className="h-5 w-5" />}
         />
         <StatsCard
           title="Revenue"
           value="₹42.5L"
-          description="+8% from last month"
-          trend="up"
+          change={{ value: 8, type: 'increase' }}
           icon={<Percent className="h-5 w-5" />}
         />
       </div>
@@ -144,7 +209,7 @@ const Dashboard = () => {
               <CardDescription>Latest updates from your team</CardDescription>
             </CardHeader>
             <CardContent>
-              <ActivityFeed />
+              <ActivityFeed activities={activityData} />
             </CardContent>
             <CardFooter>
               <Button variant="ghost" size="sm" className="text-xs w-full">
