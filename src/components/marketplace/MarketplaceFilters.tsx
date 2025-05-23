@@ -7,9 +7,21 @@ import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-
+interface Filters {
+  priceRange: string;
+  location: string;
+  propertyType: string[];
+  bedrooms: string[];
+  amenities: string[];
+}
 interface MarketplaceFiltersProps {
-  onFilterChange?: (filters: any) => void;
+  onFilterChange({
+  priceRange: `₹${priceRange[0]} Lac - ₹${priceRange[1]} Lac`,
+  location: searchParams.location,
+  propertyType: searchParams.propertyType,
+  bedrooms: searchParams.bedrooms,
+  amenities: searchParams.amenities,
+});
 }
 
 export const MarketplaceFilters: React.FC<MarketplaceFiltersProps> = ({ onFilterChange }) => {
