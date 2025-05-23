@@ -21,6 +21,7 @@ import AiInsights from "./pages/AiInsights";
 import DataImport from "./pages/DataImport";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import Documentation from "./pages/Documentation";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/knowledgebase" element={<Knowledgebase />} />
             <Route path="/ai-insights" element={<AiInsights />} />
             <Route path="/data-import" element={<DataImport />} />
+            <Route path="/documentation" element={<Documentation />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

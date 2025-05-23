@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Navbar } from '@/components/ui/Navbar';
+import { PageContainer } from '@/components/layout/PageContainer';
 import { PropertyCard } from '@/components/properties/PropertyCard';
 import { MarketplaceMap } from '@/components/marketplace/MarketplaceMap';
 import { MarketplaceFilters } from '@/components/marketplace/MarketplaceFilters';
@@ -91,101 +90,97 @@ const Marketplace = () => {
   const [showAiInsights, setShowAiInsights] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
-      <Navbar />
-      
-      <main className="relative flex-1 w-full lg:pl-60 pt-16 lg:pt-0 overflow-y-auto">
-        <div className="max-w-7xl mx-auto px-4 py-6 w-full">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
-            <div>
-              <h1 className="text-2xl font-bold text-saas-dark mb-1">Property Marketplace</h1>
-              <p className="text-muted-foreground">Discover the perfect property in Pune, India</p>
-            </div>
-            
-            <div className="flex items-center gap-2 mt-4 md:mt-0">
-              <Tabs defaultValue="buy" className="w-[200px]">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="buy">Buy</TabsTrigger>
-                  <TabsTrigger value="rent">Rent</TabsTrigger>
-                </TabsList>
-              </Tabs>
-            </div>
+    <PageContainer>
+      <div className="max-w-7xl w-full">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+          <div>
+            <h1 className="text-2xl font-bold text-saas-dark mb-1">Property Marketplace</h1>
+            <p className="text-muted-foreground">Discover the perfect property in Pune, India</p>
           </div>
           
-          <div className="flex flex-col lg:flex-row gap-4 mb-6">
-            <div className="flex-grow relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-              <Input 
-                placeholder="Search for location, property type..." 
-                className="pl-10 pr-4 py-2 w-full"
-              />
-            </div>
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                onClick={() => setShowFilters(!showFilters)}
-                className={showFilters ? "bg-saas-primary/10 text-saas-primary" : ""}
-              >
-                <Filter className="h-4 w-4 mr-2" />
-                Filters
-                <ChevronDown className="h-4 w-4 ml-1" />
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => setShowAiInsights(!showAiInsights)}
-                className={showAiInsights ? "bg-saas-secondary/10 text-saas-secondary" : ""}
-              >
-                <Sparkles className="h-4 w-4 mr-2" />
-                AI Insights
-              </Button>
-              <div className="hidden md:flex border rounded-md">
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => setViewMode('grid')}
-                  className={viewMode === 'grid' ? "bg-muted" : ""}
-                >
-                  <Grid className="h-4 w-4" />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => setViewMode('list')}
-                  className={viewMode === 'list' ? "bg-muted" : ""}
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => setViewMode('map')}
-                  className={viewMode === 'map' ? "bg-muted" : ""}
-                >
-                  <MapPin className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
-          
-          {showFilters && <MarketplaceFilters />}
-          {showAiInsights && <AiPropertyInsights />}
-          
-          <div className="pb-8">
-            {viewMode === 'map' ? (
-              <div className="h-[calc(100vh-220px)]">
-                <MarketplaceMap properties={propertyData} />
-              </div>
-            ) : (
-              <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
-                {propertyData.map((property) => (
-                  <PropertyCard key={property.id} property={property} />
-                ))}
-              </div>
-            )}
+          <div className="flex items-center gap-2 mt-4 md:mt-0">
+            <Tabs defaultValue="buy" className="w-[200px]">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="buy">Buy</TabsTrigger>
+                <TabsTrigger value="rent">Rent</TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
         </div>
-      </main>
-    </div>
+        
+        <div className="flex flex-col lg:flex-row gap-4 mb-6">
+          <div className="flex-grow relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+            <Input 
+              placeholder="Search for location, property type..." 
+              className="pl-10 pr-4 py-2 w-full"
+            />
+          </div>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              onClick={() => setShowFilters(!showFilters)}
+              className={showFilters ? "bg-saas-primary/10 text-saas-primary" : ""}
+            >
+              <Filter className="h-4 w-4 mr-2" />
+              Filters
+              <ChevronDown className="h-4 w-4 ml-1" />
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setShowAiInsights(!showAiInsights)}
+              className={showAiInsights ? "bg-saas-secondary/10 text-saas-secondary" : ""}
+            >
+              <Sparkles className="h-4 w-4 mr-2" />
+              AI Insights
+            </Button>
+            <div className="hidden md:flex border rounded-md">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setViewMode('grid')}
+                className={viewMode === 'grid' ? "bg-muted" : ""}
+              >
+                <Grid className="h-4 w-4" />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setViewMode('list')}
+                className={viewMode === 'list' ? "bg-muted" : ""}
+              >
+                <List className="h-4 w-4" />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setViewMode('map')}
+                className={viewMode === 'map' ? "bg-muted" : ""}
+              >
+                <MapPin className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+        
+        {showFilters && <MarketplaceFilters />}
+        {showAiInsights && <AiPropertyInsights />}
+        
+        <div className="pb-8">
+          {viewMode === 'map' ? (
+            <div className="h-[calc(100vh-220px)]">
+              <MarketplaceMap properties={propertyData} />
+            </div>
+          ) : (
+            <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
+              {propertyData.map((property) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </PageContainer>
   );
 };
 

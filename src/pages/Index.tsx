@@ -14,7 +14,8 @@ import {
   Sparkles,
   Layers,
   Percent,
-  MessageSquare
+  MessageSquare,
+  BookOpen
 } from 'lucide-react';
 
 const Index = () => {
@@ -31,6 +32,7 @@ const Index = () => {
           <a href="#features" className="text-sm font-medium text-saas-dark hover:text-saas-primary transition-colors">Features</a>
           <a href="#solutions" className="text-sm font-medium text-saas-dark hover:text-saas-primary transition-colors">Solutions</a>
           <Link to="/marketplace" className="text-sm font-medium text-saas-dark hover:text-saas-primary transition-colors">Marketplace</Link>
+          <Link to="/documentation" className="text-sm font-medium text-saas-dark hover:text-saas-primary transition-colors">Documentation</Link>
         </div>
         <div className="flex items-center space-x-4">
           <Link to="/login">
@@ -331,37 +333,132 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16 text-center">
-        <Link to="/marketplace" className="inline-block">
-          <div className="group relative overflow-hidden rounded-2xl mb-12">
-            <div className="absolute inset-0 bg-gradient-to-r from-saas-primary/80 to-saas-secondary/80 z-10"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-              alt="Property marketplace" 
-              className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-20 text-white p-6">
-              <MapPin className="h-10 w-10 mb-4" />
-              <h3 className="text-2xl font-bold mb-2">Explore Our Marketplace</h3>
-              <p className="text-white/80 max-w-md mb-4">Discover the perfect property with our AI-powered search tools and interactive map</p>
-              <Button variant="secondary" size="sm" className="bg-white text-saas-primary hover:bg-white/90">
-                View Listings
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+      <section className="container mx-auto px-4 py-16">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold mb-4 text-saas-dark">Featured Screenshots</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Take a closer look at our intuitive interface and powerful features
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="rounded-xl border overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+            <div className="p-4 border-b bg-muted/20">
+              <h3 className="font-semibold flex items-center">
+                <LayoutGrid className="h-4 w-4 mr-2 text-saas-primary" />
+                Dashboard Overview
+              </h3>
+            </div>
+            <div>
+              <img 
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                alt="Dashboard Screenshot" 
+                className="w-full object-cover"
+              />
+            </div>
+            <div className="p-4 bg-white">
+              <p className="text-sm text-muted-foreground">
+                Comprehensive dashboard with key metrics, activity feeds, and performance analytics.
+              </p>
             </div>
           </div>
-        </Link>
+          
+          <div className="rounded-xl border overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+            <div className="p-4 border-b bg-muted/20">
+              <h3 className="font-semibold flex items-center">
+                <MapPin className="h-4 w-4 mr-2 text-saas-primary" />
+                Property Marketplace
+              </h3>
+            </div>
+            <div>
+              <img 
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                alt="Marketplace Screenshot" 
+                className="w-full object-cover"
+              />
+            </div>
+            <div className="p-4 bg-white">
+              <p className="text-sm text-muted-foreground">
+                Browse and filter properties with our interactive map and advanced search tools.
+              </p>
+            </div>
+          </div>
+          
+          <div className="rounded-xl border overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+            <div className="p-4 border-b bg-muted/20">
+              <h3 className="font-semibold flex items-center">
+                <Users className="h-4 w-4 mr-2 text-saas-primary" />
+                Lead Management
+              </h3>
+            </div>
+            <div>
+              <img 
+                src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                alt="Leads Screenshot" 
+                className="w-full object-cover"
+              />
+            </div>
+            <div className="p-4 bg-white">
+              <p className="text-sm text-muted-foreground">
+                Powerful CRM system for tracking and managing customer leads through the sales funnel.
+              </p>
+            </div>
+          </div>
+          
+          <div className="rounded-xl border overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+            <div className="p-4 border-b bg-muted/20">
+              <h3 className="font-semibold flex items-center">
+                <BookOpen className="h-4 w-4 mr-2 text-saas-primary" />
+                Documentation & Resources
+              </h3>
+            </div>
+            <div>
+              <img 
+                src="https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                alt="Documentation Screenshot" 
+                className="w-full object-cover"
+              />
+            </div>
+            <div className="p-4 bg-white">
+              <p className="text-sm text-muted-foreground">
+                Access design system, technical architecture, and development resources.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="text-center">
+          <Link to="/marketplace" className="inline-block">
+            <div className="group relative overflow-hidden rounded-2xl mb-12">
+              <div className="absolute inset-0 bg-gradient-to-r from-saas-primary/80 to-saas-secondary/80 z-10"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                alt="Property marketplace" 
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-20 text-white p-6">
+                <MapPin className="h-10 w-10 mb-4" />
+                <h3 className="text-2xl font-bold mb-2">Explore Our Marketplace</h3>
+                <p className="text-white/80 max-w-md mb-4">Discover the perfect property with our AI-powered search tools and interactive map</p>
+                <Button variant="secondary" size="sm" className="bg-white text-saas-primary hover:bg-white/90">
+                  View Listings
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </Link>
 
-        <h2 className="text-3xl font-bold mb-6 text-saas-dark">Ready to Transform Your Real Estate Business?</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto mb-10">
-          Join thousands of builders, realtors, and buyers who have streamlined their operations with One Parivaar.
-        </p>
-        <Link to="/dashboard">
-          <Button size="lg" className="bg-saas-primary hover:bg-saas-primary/90">
-            Try Demo Now
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
+          <h2 className="text-3xl font-bold mb-6 text-saas-dark">Ready to Transform Your Real Estate Business?</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-10">
+            Join thousands of builders, realtors, and buyers who have streamlined their operations with One Parivaar.
+          </p>
+          <Link to="/dashboard">
+            <Button size="lg" className="bg-saas-primary hover:bg-saas-primary/90">
+              Try Demo Now
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
       </section>
 
       <footer className="bg-saas-light py-12">
@@ -393,8 +490,8 @@ const Index = () => {
                 <h3 className="font-medium mb-4 text-saas-dark">Resources</h3>
                 <ul className="space-y-2">
                   <li><Link to="/knowledgebase" className="text-sm text-muted-foreground hover:text-saas-primary transition-colors">Knowledge Base</Link></li>
+                  <li><Link to="/documentation" className="text-sm text-muted-foreground hover:text-saas-primary transition-colors">Documentation</Link></li>
                   <li><Link to="/agreements" className="text-sm text-muted-foreground hover:text-saas-primary transition-colors">Agreements</Link></li>
-                  <li><a href="#" className="text-sm text-muted-foreground hover:text-saas-primary transition-colors">Support</a></li>
                 </ul>
               </div>
               
