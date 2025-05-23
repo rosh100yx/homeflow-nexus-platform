@@ -91,11 +91,11 @@ const Marketplace = () => {
   const [showAiInsights, setShowAiInsights] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background flex overflow-hidden">
+    <div className="flex min-h-screen bg-background">
       <Navbar />
       
-      <main className="flex-1 overflow-y-auto">
-        <div className="max-w-full mx-auto px-4 py-6 lg:pl-6 lg:pr-6 w-full">
+      <main className="flex-1 w-full lg:pl-60 pt-16 lg:pt-0">
+        <div className="max-w-7xl mx-auto px-4 py-6 w-full">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
             <div>
               <h1 className="text-2xl font-bold text-saas-dark mb-1">Property Marketplace</h1>
@@ -170,15 +170,17 @@ const Marketplace = () => {
           {showFilters && <MarketplaceFilters />}
           {showAiInsights && <AiPropertyInsights />}
           
-          {viewMode === 'map' ? (
-            <MarketplaceMap properties={propertyData} />
-          ) : (
-            <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
-              {propertyData.map((property) => (
-                <PropertyCard key={property.id} property={property} />
-              ))}
-            </div>
-          )}
+          <div className="overflow-y-auto pb-8">
+            {viewMode === 'map' ? (
+              <MarketplaceMap properties={propertyData} />
+            ) : (
+              <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
+                {propertyData.map((property) => (
+                  <PropertyCard key={property.id} property={property} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </main>
     </div>

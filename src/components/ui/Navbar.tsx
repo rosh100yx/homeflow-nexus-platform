@@ -129,7 +129,7 @@ export const Navbar: React.FC = () => {
     <>
       {/* Desktop Navigation - Stripe-like UI */}
       <div className={cn(
-        "hidden lg:flex fixed inset-y-0 left-0 flex-col py-0 w-60 border-r z-40 overflow-y-auto scrollbar-none transition-all duration-200",
+        "hidden lg:flex fixed inset-y-0 left-0 flex-col py-0 w-60 border-r z-40 transition-all duration-200",
         scrolled ? "bg-white/80 backdrop-blur-md border-muted" : "bg-saas-dark border-saas-dark/20"
       )}>
         <div className="px-3 py-5 border-b border-saas-dark/20">
@@ -144,7 +144,7 @@ export const Navbar: React.FC = () => {
           </Link>
         </div>
         
-        <nav className="flex-1 py-4">
+        <nav className="flex-1 py-4 overflow-y-auto">
           <div className="px-3 mb-2">
             <p className={cn(
               "text-xs font-medium uppercase mb-2 transition-colors",
