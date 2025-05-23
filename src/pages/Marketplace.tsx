@@ -91,10 +91,10 @@ const Marketplace = () => {
   const [showAiInsights, setShowAiInsights] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex h-screen overflow-hidden bg-background">
       <Navbar />
       
-      <main className="flex-1 w-full lg:pl-60 pt-16 lg:pt-0 pb-6 overflow-y-auto">
+      <main className="relative flex-1 w-full lg:pl-60 pt-16 lg:pt-0 overflow-y-auto">
         <div className="max-w-7xl mx-auto px-4 py-6 w-full">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
             <div>
@@ -170,9 +170,11 @@ const Marketplace = () => {
           {showFilters && <MarketplaceFilters />}
           {showAiInsights && <AiPropertyInsights />}
           
-          <div className="overflow-y-auto pb-8">
+          <div className="pb-8">
             {viewMode === 'map' ? (
-              <MarketplaceMap properties={propertyData} />
+              <div className="h-[calc(100vh-220px)]">
+                <MarketplaceMap properties={propertyData} />
+              </div>
             ) : (
               <div className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} gap-6`}>
                 {propertyData.map((property) => (
