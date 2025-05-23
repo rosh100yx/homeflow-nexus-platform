@@ -94,7 +94,7 @@ const Marketplace = () => {
     <div className="flex min-h-screen bg-background">
       <Navbar />
       
-      <main className="flex-1 w-full lg:pl-60 pt-16 lg:pt-0">
+      <main className="flex-1 w-full lg:pl-60 pt-16 lg:pt-0 overflow-y-auto">
         <div className="max-w-7xl mx-auto px-4 py-6 w-full">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
             <div>

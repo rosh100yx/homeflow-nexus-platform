@@ -80,7 +80,17 @@ export const ExcelUploader: React.FC<ExcelUploaderProps> = ({
           const workbook = XLSX.read(data, { type: 'array' });
           const firstSheetName = workbook.SheetNames[0];
           const worksheet = workbook.Sheets[firstSheetName];
-          const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+          const jsonData = XLSX.utils.sheet_to_json(worksheet, { 
+            header: 1,
+            defval: '',
+            blankrows: false
+          });
+          
+          // Check if we have data (at least headers)
+          if (jsonData.length < 2) {
+            resolve([]);
+            return;
+          }
           
           // Convert to array of objects with headers
           const headers = jsonData[0] as string[];
@@ -89,13 +99,16 @@ export const ExcelUploader: React.FC<ExcelUploaderProps> = ({
           const formattedData = rows.map((row: any) => {
             const obj: Record<string, any> = {};
             headers.forEach((header, index) => {
-              obj[header] = row[index];
+              if (header) { // Only process valid headers
+                obj[header] = row[index] !== undefined ? row[index] : '';
+              }
             });
             return obj;
           });
           
           resolve(formattedData);
         } catch (error) {
+          console.error('Excel parsing error:', error);
           reject(new Error('Failed to parse Excel file'));
         }
       };

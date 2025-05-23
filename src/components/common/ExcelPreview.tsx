@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Table, 
   TableBody, 
@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/pagination";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Download, Search } from 'lucide-react';
+import { Download, Search, Edit, Save, X } from 'lucide-react';
 import * as XLSX from 'xlsx';
 
 interface ExcelPreviewProps {
@@ -30,13 +30,21 @@ interface ExcelPreviewProps {
 export const ExcelPreview: React.FC<ExcelPreviewProps> = ({ data, fileName }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [editMode, setEditMode] = useState(false);
+  const [editingCell, setEditingCell] = useState<{rowIndex: number, header: string} | null>(null);
+  const [editedData, setEditedData] = useState<any[]>([]);
   const rowsPerPage = 10;
+  
+  // Initialize edited data with the original data
+  useEffect(() => {
+    setEditedData([...data]);
+  }, [data]);
   
   // Extract headers from the first data item
   const headers = data.length > 0 ? Object.keys(data[0]) : [];
   
   // Filter data based on search query
-  const filteredData = data.filter((row) => {
+  const filteredData = editedData.filter((row) => {
     return Object.values(row).some(
       (value) => 
         value !== null && 
@@ -97,6 +105,42 @@ export const ExcelPreview: React.FC<ExcelPreviewProps> = ({ data, fileName }) =>
     XLSX.writeFile(workbook, fileName || 'exported-data.xlsx');
   };
   
+  // Handle cell click for editing
+  const handleCellClick = (rowIndex: number, header: string) => {
+    if (editMode) {
+      setEditingCell({ rowIndex, header });
+    }
+  };
+  
+  // Handle cell value change
+  const handleCellChange = (e: React.ChangeEvent<HTMLInputElement>, rowIndex: number, header: string) => {
+    const newValue = e.target.value;
+    const actualRowIndex = startIndex + rowIndex;
+    
+    setEditedData(prev => {
+      const newData = [...prev];
+      newData[actualRowIndex] = {
+        ...newData[actualRowIndex],
+        [header]: newValue
+      };
+      return newData;
+    });
+  };
+  
+  // Handle save all edits
+  const handleSaveEdits = () => {
+    setEditMode(false);
+    setEditingCell(null);
+    // Here you would typically send the edited data back to the parent or to an API
+  };
+  
+  // Handle cancel edits
+  const handleCancelEdits = () => {
+    setEditMode(false);
+    setEditingCell(null);
+    setEditedData([...data]); // Reset to original data
+  };
+  
   return (
     <div className="w-full">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
@@ -113,14 +157,47 @@ export const ExcelPreview: React.FC<ExcelPreviewProps> = ({ data, fileName }) =>
           />
         </div>
         
-        <Button 
-          variant="outline" 
-          onClick={handleDownload}
-          className="w-full sm:w-auto flex items-center gap-2"
-        >
-          <Download className="h-4 w-4" /> 
-          Download
-        </Button>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          {editMode ? (
+            <>
+              <Button 
+                variant="default" 
+                onClick={handleSaveEdits}
+                className="flex items-center gap-2"
+              >
+                <Save className="h-4 w-4" /> 
+                Save Changes
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={handleCancelEdits}
+                className="flex items-center gap-2"
+              >
+                <X className="h-4 w-4" /> 
+                Cancel
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button 
+                variant="outline" 
+                onClick={() => setEditMode(true)}
+                className="flex items-center gap-2"
+              >
+                <Edit className="h-4 w-4" /> 
+                Edit Data
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={handleDownload}
+                className="flex items-center gap-2"
+              >
+                <Download className="h-4 w-4" /> 
+                Download
+              </Button>
+            </>
+          )}
+        </div>
       </div>
       
       <div className="border rounded-md overflow-hidden">
@@ -147,10 +224,29 @@ export const ExcelPreview: React.FC<ExcelPreviewProps> = ({ data, fileName }) =>
                 paginatedData.map((row, rowIndex) => (
                   <TableRow key={rowIndex}>
                     {headers.map((header, colIndex) => (
-                      <TableCell key={colIndex} className="truncate max-w-xs">
-                        {row[header] !== undefined && row[header] !== null
-                          ? String(row[header])
-                          : '-'}
+                      <TableCell 
+                        key={colIndex} 
+                        className={`truncate max-w-xs ${editMode ? 'cursor-pointer hover:bg-muted/50' : ''}`}
+                        onClick={() => handleCellClick(rowIndex, header)}
+                      >
+                        {editMode && editingCell?.rowIndex === rowIndex && editingCell?.header === header ? (
+                          <Input 
+                            value={row[header] !== undefined && row[header] !== null ? String(row[header]) : ''}
+                            onChange={(e) => handleCellChange(e, rowIndex, header)}
+                            className="h-8 p-1"
+                            autoFocus
+                            onBlur={() => setEditingCell(null)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                setEditingCell(null);
+                              }
+                            }}
+                          />
+                        ) : (
+                          row[header] !== undefined && row[header] !== null
+                            ? String(row[header])
+                            : '-'
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>
