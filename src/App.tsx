@@ -27,7 +27,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <ThemeProvider attribute="class" defaultTheme="light">
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen w-full overflow-hidden">
+      <div className="min-h-screen w-full">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
