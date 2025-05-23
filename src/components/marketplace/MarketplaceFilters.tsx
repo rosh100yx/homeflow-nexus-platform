@@ -15,13 +15,7 @@ interface Filters {
   amenities: string[];
 }
 interface MarketplaceFiltersProps {
-  onFilterChange({
-  priceRange: `₹${priceRange[0]} Lac - ₹${priceRange[1]} Lac`,
-  location: searchParams.location,
-  propertyType: searchParams.propertyType,
-  bedrooms: searchParams.bedrooms,
-  amenities: searchParams.amenities,
-});
+  onFilterChange: (filters: Filters) => void;
 }
 
 export const MarketplaceFilters: React.FC<MarketplaceFiltersProps> = ({ onFilterChange }) => {
