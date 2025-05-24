@@ -19,9 +19,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: '/homeflow-nexus-platform/',
-  build: {
-    outDir: 'dist',
-    sourcemap: true
-  }
+  
 }));
