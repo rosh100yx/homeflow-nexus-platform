@@ -11,7 +11,6 @@ import Index from "./pages/Index";
 import Dashboard from './pages/Dashboard'
 import DataImport from './pages/DataImport'
 import Documentation from './pages/Documentation'
-import Index from './pages/Index'
 import KnowledgeBase from './pages/Knowledgebase'
 import Leads from './pages/Leads'
 import Login from './pages/Login'
