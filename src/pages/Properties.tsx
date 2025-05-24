@@ -15,6 +15,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { AddPropertyDialog } from '@/components/properties/AddPropertyDialog';
+import { PageContainer } from '@/components/layout/PageContainer';
 
 // Mock data for properties in Pune, India
 const properties = [
@@ -126,141 +127,116 @@ const Properties: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <Navbar />
-      
-      <div className="lg:pl-60 pt-16 lg:pt-0 flex-1 overflow-y-auto">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Properties</h1>
-              <p className="text-gray-500">Manage and track all your property listings in Pune</p>
-            </div>
+    <PageContainer hasSidebar={true}>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Properties</h1>
+            <p className="text-gray-500">Manage and track all your property listings in Pune</p>
+          </div>
+          
+          <div className="mt-4 md:mt-0">
+            <Button onClick={() => setIsAddPropertyDialogOpen(true)}>
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Add Property
+            </Button>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-md mb-6 shadow-sm">
+          <div className="border-b border-gray-200 p-4">
+            <Tabs defaultValue="all" className="w-full" onValueChange={handleTabChange}>
+              <TabsList className="inline-flex h-10 p-1 bg-slate-100 rounded-md mb-4">
+                <TabsTrigger value="all" className="rounded-md h-8">All Properties</TabsTrigger>
+                <TabsTrigger value="active" className="rounded-md h-8">For Sale</TabsTrigger>
+                <TabsTrigger value="pending" className="rounded-md h-8">Pending</TabsTrigger>
+                <TabsTrigger value="sold" className="rounded-md h-8">Sold</TabsTrigger>
+              </TabsList>
+            </Tabs>
             
-            <div className="mt-4 md:mt-0">
-              <Button onClick={() => setIsAddPropertyDialogOpen(true)}>
-                <PlusCircle className="mr-2 h-4 w-4" />
-                Add Property
-              </Button>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
+              <div className="relative flex-grow">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Input placeholder="Search properties in Pune..." className="pl-9 w-full" />
+              </div>
+              
+              <div className="flex space-x-2 sm:w-auto">
+                <Select defaultValue="all">
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue placeholder="Property Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Types</SelectItem>
+                    <SelectItem value="apartment">Apartment</SelectItem>
+                    <SelectItem value="villa">Villa</SelectItem>
+                    <SelectItem value="house">House</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                <Button variant="outline">
+                  <SlidersHorizontal className="mr-2 h-4 w-4" />
+                  Filters
+                </Button>
+              </div>
             </div>
           </div>
           
-          <div className="bg-white rounded-md mb-6 shadow-sm">
-            <div className="border-b border-gray-200 p-4">
-              <Tabs defaultValue="all" className="w-full" onValueChange={handleTabChange}>
-                <TabsList className="inline-flex h-10 p-1 bg-slate-100 rounded-md mb-4">
-                  <TabsTrigger value="all" className="rounded-md h-8">All Properties</TabsTrigger>
-                  <TabsTrigger value="active" className="rounded-md h-8">For Sale</TabsTrigger>
-                  <TabsTrigger value="pending" className="rounded-md h-8">Pending</TabsTrigger>
-                  <TabsTrigger value="sold" className="rounded-md h-8">Sold</TabsTrigger>
-                </TabsList>
-              </Tabs>
+          <div className="p-4">
+            <div className="flex justify-between items-center mb-4">
+              <p className="text-sm text-gray-500">{properties.filter(property => 
+                activeTab === 'all' || 
+                (activeTab === 'active' && property.status === 'for-sale') ||
+                (activeTab === 'pending' && property.status === 'pending') ||
+                (activeTab === 'sold' && property.status === 'sold')
+              ).length} properties</p>
               
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
-                <div className="relative flex-grow">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input placeholder="Search properties in Pune..." className="pl-9 w-full" />
-                </div>
-                
-                <div className="flex space-x-2 sm:w-auto">
-                  <Select defaultValue="all">
-                    <SelectTrigger className="w-[140px]">
-                      <SelectValue placeholder="Property Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="apartment">Apartment</SelectItem>
-                      <SelectItem value="villa">Villa</SelectItem>
-                      <SelectItem value="house">House</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  
-                  <Button variant="outline">
-                    <SlidersHorizontal className="mr-2 h-4 w-4" />
-                    Filters
-                  </Button>
-                </div>
-              </div>
-              
-              <div className="flex flex-wrap gap-2 mt-4">
-                <Badge variant="secondary" className="flex gap-1 items-center px-3 py-1 bg-slate-100 text-slate-800 rounded-full hover:bg-slate-200">
-                  Price: ₹65L - ₹1.25Cr
-                  <button className="ml-1 text-xs p-0.5 hover:bg-slate-300 rounded-full">
-                    <X className="h-3 w-3" />
-                  </button>
-                </Badge>
-                <Badge variant="secondary" className="flex gap-1 items-center px-3 py-1 bg-slate-100 text-slate-800 rounded-full hover:bg-slate-200">
-                  Beds: 3+
-                  <button className="ml-1 text-xs p-0.5 hover:bg-slate-300 rounded-full">
-                    <X className="h-3 w-3" />
-                  </button>
-                </Badge>
-                <Badge variant="secondary" className="flex gap-1 items-center px-3 py-1 bg-slate-100 text-slate-800 rounded-full hover:bg-slate-200">
-                  Pune, Maharashtra
-                  <button className="ml-1 text-xs p-0.5 hover:bg-slate-300 rounded-full">
-                    <X className="h-3 w-3" />
-                  </button>
-                </Badge>
+              <div className="flex items-center space-x-2">
+                <Button variant="outline" size="icon" onClick={() => setViewMode('grid')} className={viewMode === 'grid' ? 'bg-muted' : ''}>
+                  <LayoutGrid className="h-4 w-4" />
+                </Button>
+                <Button variant="outline" size="icon" onClick={() => setViewMode('list')} className={viewMode === 'list' ? 'bg-muted' : ''}>
+                  <List className="h-4 w-4" />
+                </Button>
               </div>
             </div>
             
-            <div className="p-4">
-              <div className="flex justify-between items-center mb-4">
-                <p className="text-sm text-gray-500">{properties.filter(property => 
-                  activeTab === 'all' || 
-                  (activeTab === 'active' && property.status === 'for-sale') ||
-                  (activeTab === 'pending' && property.status === 'pending') ||
-                  (activeTab === 'sold' && property.status === 'sold')
-                ).length} properties</p>
-                
-                <div className="flex items-center space-x-2">
-                  <Button variant="outline" size="icon" onClick={() => setViewMode('grid')} className={viewMode === 'grid' ? 'bg-muted' : ''}>
-                    <LayoutGrid className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon" onClick={() => setViewMode('list')} className={viewMode === 'list' ? 'bg-muted' : ''}>
-                    <List className="h-4 w-4" />
-                  </Button>
-                </div>
+            <TabsContent value="all" className="mt-0">
+              <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
+                {properties.map(property => (
+                  <PropertyCard key={property.id} property={property} />
+                ))}
               </div>
-              
-              <TabsContent value="all" className="mt-0">
-                <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
-                  {properties.map(property => (
+            </TabsContent>
+            
+            <TabsContent value="active" className="mt-0">
+              <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
+                {properties
+                  .filter(property => property.status === 'for-sale')
+                  .map(property => (
                     <PropertyCard key={property.id} property={property} />
                   ))}
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="active" className="mt-0">
-                <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
-                  {properties
-                    .filter(property => property.status === 'for-sale')
-                    .map(property => (
-                      <PropertyCard key={property.id} property={property} />
-                    ))}
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="pending" className="mt-0">
-                <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
-                  {properties
-                    .filter(property => property.status === 'pending')
-                    .map(property => (
-                      <PropertyCard key={property.id} property={property} />
-                    ))}
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="sold" className="mt-0">
-                <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
-                  {properties
-                    .filter(property => property.status === 'sold')
-                    .map(property => (
-                      <PropertyCard key={property.id} property={property} />
-                    ))}
-                </div>
-              </TabsContent>
-            </div>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="pending" className="mt-0">
+              <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
+                {properties
+                  .filter(property => property.status === 'pending')
+                  .map(property => (
+                    <PropertyCard key={property.id} property={property} />
+                  ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="sold" className="mt-0">
+              <div className={`grid grid-cols-1 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
+                {properties
+                  .filter(property => property.status === 'sold')
+                  .map(property => (
+                    <PropertyCard key={property.id} property={property} />
+                  ))}
+              </div>
+            </TabsContent>
           </div>
         </div>
       </div>
@@ -269,7 +245,7 @@ const Properties: React.FC = () => {
         open={isAddPropertyDialogOpen} 
         onOpenChange={setIsAddPropertyDialogOpen} 
       />
-    </div>
+    </PageContainer>
   );
 };
 

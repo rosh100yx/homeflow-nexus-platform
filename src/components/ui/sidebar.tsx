@@ -173,6 +173,20 @@ const Sidebar = React.forwardRef<
   ) => {
     const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
 
+    const navigationItems = [
+      { label: "Dashboard", href: "/dashboard" },
+      { label: "Marketplace", href: "/marketplace" },
+      { label: "Leads", href: "/leads" },
+      { label: "Transactions", href: "/transactions" },
+      { label: "Payments", href: "/payments" },
+      { label: "Agreements", href: "/agreements" },
+      { label: "Analytics", href: "/analytics" },
+      { label: "Settings", href: "/settings" },
+      { label: "Knowledgebase", href: "/knowledgebase" },
+      { label: "AI Insights", href: "/ai-insights" },
+      { label: "Data Import", href: "/data-import" },
+    ]
+
     if (collapsible === "none") {
       return (
         <div

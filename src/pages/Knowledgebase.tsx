@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { FileText, Search, Book, BookOpen, Sparkles, FileSearch, FilePen, Calendar, Database, Bookmark, ClipboardCheck } from 'lucide-react';
-import { PageContainer } from '@/components/ui/page-container';
+import { PageContainer } from '@/components/layout/PageContainer';
 
 // Sample data
 const articles = [
