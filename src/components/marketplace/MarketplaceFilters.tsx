@@ -7,15 +7,9 @@ import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-interface Filters {
-  priceRange: string;
-  location: string;
-  propertyType: string[];
-  bedrooms: string[];
-  amenities: string[];
-}
+
 interface MarketplaceFiltersProps {
-  onFilterChange: (filters: Filters) => void;
+  onFilterChange?: (filters: any) => void;
 }
 
 export const MarketplaceFilters: React.FC<MarketplaceFiltersProps> = ({ onFilterChange }) => {
