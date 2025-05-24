@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -412,6 +411,17 @@ const Index = () => {
           <div className="pt-8 border-t border-gray-200 text-center text-sm text-muted-foreground">
             <p>&copy; 2025 One Parivaar. All rights reserved.</p>
           </div>
+        </div>
+      </footer>
+
+      <footer className="container mx-auto px-4 py-6 border-t border-gray-200 text-center">
+        <p className="text-sm text-muted-foreground">
+          © 2025 One Parivaar. All rights reserved.
+        </p>
+        <div className="mt-4">
+          <Link to="/documentation" className="text-saas-primary hover:underline">
+            Documentation
+          </Link>
         </div>
       </footer>
     </div>
