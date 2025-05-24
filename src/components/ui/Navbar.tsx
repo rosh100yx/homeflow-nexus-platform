@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -18,7 +17,8 @@ import {
   Sparkles,
   User, 
   Users, 
-  X 
+  X,
+  BookOpen
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
@@ -102,6 +102,11 @@ export const Navbar: React.FC = () => {
       label: "AI Insights",
       href: "/ai-insights",
       icon: <Sparkles className="h-5 w-5" />,
+    },
+    {
+      label: "Documentation",
+      href: "/documentation",
+      icon: <BookOpen className="h-5 w-5" />,
     },
     {
       label: "Settings",
