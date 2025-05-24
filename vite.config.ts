@@ -4,19 +4,21 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: '/homeflow-nexus-platform/', // Add this line
+  base: '/homeflow-nexus-platform/',
   server: {
-    host: "::",
+    host: "0.0.0.0",
     port: 8080,
   },
   plugins: [
     react(),
-    mode === 'development' &&
-    componentTagger(),
-  ].filter(Boolean),
+    ...(mode === 'development' ? [componentTagger()] : []),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Alias for the `src` directory
+      "@": path.resolve(__dirname, "./src"),
+      // Alias for the `src` directory
     },
   },
 }));
