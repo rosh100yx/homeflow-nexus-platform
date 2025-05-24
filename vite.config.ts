@@ -7,8 +7,19 @@ export default defineConfig({
   base: '/homeflow-nexus-platform/',
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, "./src")
-      // Remove any duplicate '@' aliases
+      '@': path.resolve(__dirname, './src')
+    }
+  },
+  build: {
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        }
+      }
     }
   }
 })
