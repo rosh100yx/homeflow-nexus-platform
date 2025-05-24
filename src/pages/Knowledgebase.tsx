@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Navbar } from '@/components/ui/Navbar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { FileText, Search, Book, BookOpen, Sparkles, FileSearch, FilePen, Calendar, Database, Bookmark, ClipboardCheck } from 'lucide-react';
+import { PageContainer } from '@/components/ui/page-container';
 
 // Sample data
 const articles = [
@@ -129,6 +129,33 @@ const Knowledgebase = () => {
       <Navbar />
       
       <main className="container mx-auto px-4 py-6 lg:ml-60">
+        <PageContainer hasSidebar={true} maxWidth="max-w-7xl" padding="px-4 py-6">
+          <div className="space-y-6">
+            {/* Page Header */}
+            <div className="text-center">
+              <h1 className="text-3xl font-bold">Knowledgebase</h1>
+              <p className="text-gray-600">Find answers and resources for your queries</p>
+            </div>
+
+            {/* Default Grid Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* Example Knowledgebase Articles */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Article 1</CardTitle>
+                  <CardDescription>Details about Article 1</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Article 2</CardTitle>
+                  <CardDescription>Details about Article 2</CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
+          </div>
+        </PageContainer>
+        
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-saas-dark mb-1">Knowledge Base</h1>
