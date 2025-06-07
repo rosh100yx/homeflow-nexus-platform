@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 33% 98%; /* Light clean background */
+    --foreground: 224 71% 4%; /* Dark text */
+
+    --card: 0 0% 100%; /* White card background */
+    --card-foreground: 224 71% 4%; /* Dark text on cards */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+
+    --primary: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+
+    --secondary: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 3% 87%; /* Subtle gray backgrounds */
+    --muted-foreground: 215 15% 45%; /* Subtle text */
+
+    --accent: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 14% 90%;
+    --input: 220 14% 90%;
+    --ring: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 230 46% 14%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 225 25% 27%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 230 30% 25%;
+    --sidebar-ring: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+  }
+
+  .dark {
+    --background: 230 37% 12%;
+    --foreground: 0 0% 95%;
+
+    --card: 230 30% 15%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 230 30% 15%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 230 25% 20%;
+    --muted-foreground: 230 10% 65%;
+
+    --accent: 230 25% 25%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 95%;
+
+    --border: 230 25% 25%;
+    --input: 230 25% 25%;
+    --ring: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+
+    --sidebar-background: 230 46% 14%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 25% 27%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 230 25% 25%;
+    --sidebar-ring: 3 99% 64%; /* Updated to #FF5349 (converted to HSL) */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
+  }
+  
+  .dashboard-layout {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+  }
+
+  .stats-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4;
+  }
+  
+  .page-header {
+    @apply text-2xl font-bold text-gray-800 mb-6;
+  }
+  
+  .role-indicator {
+    @apply px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .role-builder {
+    @apply bg-saas-primary/20 text-saas-primary;
+  }
+  
+  .role-realtor {
+    @apply bg-saas-secondary/20 text-saas-secondary;
+  }
+  
+  .role-buyer {
+    @apply bg-saas-muted/20 text-saas-dark;
+  }
+
+  .retro-card {
+    @apply border border-[#8E9196]/30 rounded-md shadow-sm;
+  }
+  
+  .retro-btn {
+    @apply bg-saas-primary text-white font-medium px-4 py-2 rounded-md hover:bg-saas-primary/90 shadow-sm hover:translate-y-[-1px] transition-all;
+  }
+
+  .saas-gradient {
+    @apply bg-gradient-to-r from-saas-primary to-saas-secondary;
+  }
+  
+  .glass-card {
+    @apply backdrop-blur-md bg-white/80 border border-white/10 shadow-sm;
+  }
+}
